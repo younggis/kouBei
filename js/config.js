@@ -9,10 +9,10 @@ const sceneList = [{
 		name: '服务区',
 		url: 'img/images/fuwuqu.png'
 	},
-	// {
-	// 	name: '政府办公区',
-	// 	url: 'img/images/zhengfu.png'
-	// },
+	 {
+	 	name: '政府办公区',
+	 	url: 'img/images/zhengfu.png'
+	 },
 	{
 		name: '场馆',
 		url: 'img/images/changguan.png'
@@ -38,10 +38,10 @@ const sceneList = [{
 		name: '酒店',
 		url: 'img/images/jiudian.png'
 	},
-	// {
-	// 	name: '居民区',
-	// 	url: 'img/images/jumingqu.png'
-	// },
+	 {
+	 	name: '居民区',
+	 	url: 'img/images/jumingqu.png'
+	 },
 	{
 		name: '美景',
 		url: 'img/images/meijing.png'

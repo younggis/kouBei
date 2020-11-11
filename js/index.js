@@ -18,8 +18,8 @@ function init() {
 		}
 		_addOption('cityChoice', citylist);
 
-		$$('Scene/sceneList', {}, function(result) {
-			addSceneList(result);
+//		$$('Scene/sceneList', {}, function(result) {
+//			addSceneList(result);
 
 			$$('Scene/dataTimeList', {}, function(result) {
 				timeList = result;
@@ -36,7 +36,7 @@ function init() {
 					executeQuery();
 				}, 200)
 			})
-		})
+//		})
 	})
 	$("#seaBtn").on('click', function() {
 		executeQuery();
@@ -51,7 +51,8 @@ function init() {
 		$('.app').hide()
 	})
 	$('#sure').on('click', function() {
-		executeQuery();
+		//executeQuery();
+		addTitle();
 		$('.app').hide()
 	})
 	$('.exportPoint').on('click', function() {
@@ -64,6 +65,7 @@ function init() {
 	initMap()
 }
 
+var titleData=[];
 function executeQuery() {
 	let city = $("#cityChoice").val();
 	let time = $('#time').val().replace(/-/g, '');
@@ -79,12 +81,14 @@ function executeQuery() {
 	$$('Scene/citySceneList', {
 		city: city,
 		time: time,
-		scene: scenes.join(',')
+		scene: ''//scenes.join(',')
 	}, (result) => {
 		if(!result) return;
 		addCityLayer(result.city);
+//		addTitle(result.detail);
 
-		addTitle(result.detail);
+		titleData=result.detail;
+		addSceneList();
 		let summary = result.summary;
 		addList(summary.top)
 		renderChart(summary.five)
@@ -125,13 +129,14 @@ function addList(data) {
 
 }
 
-function addSceneList(data) {
+function addSceneList() {
 	$('#queryList').html('');
-	for(let i = 0; i < data.length; i++) {
+	
+	for(let i = 0; i < titleData.length; i++) {
 		for(let j = 0; j < sceneList.length; j++) {
-			if(sceneList[j]['name'] == data[i]) {
+			if(sceneList[j]['name'] == titleData[i]['scene_name']) {
 				let btnhtml = '';
-				if(i > 13) {
+				if(i > 11) {
 					btnhtml = `
 						<div class="layui-col-md3" name="${sceneList[j]['name']}">
 							<img src="${sceneList[j]['url'].replace('.png', '') + '_unactive.png'}">
@@ -149,6 +154,10 @@ function addSceneList(data) {
 			}
 		}
 	}
+	
+	addTitle();
+	
+	
 	$('#queryList .layui-col-md3').on('click', function() {
 		let items = $('#queryList .layui-col-md3');
 		let num = $('#queryList .active').length;
@@ -157,6 +166,7 @@ function addSceneList(data) {
 			curr_url = curr_url.replace('.png', '_unactive.png');
 			$(this).find('img').attr('src', curr_url)
 			$(this).removeClass('active');
+			
 
 			//			for(let i = 0; i < items.length; i++) {
 			//				if($(items[i]).attr('name') == $(this).attr('name')) {
@@ -180,17 +190,32 @@ function addSceneList(data) {
 	})
 }
 
-function addTitle(data) {
+function addTitle() {
 	let html = '';
 	$('#titleList').html('');
 	$('#firstline').html('');
 	$('#secondline').html('');
 	$('#thirdline').html('');
-
 	$('.single-scene').hide();
 	$('.situComp').show();
 
 	let index = 0;
+	
+	let items = $('#queryList .layui-col-md3.active');
+	let scenes=[];
+	for(var i=0;i<items.length;i++){
+		scenes.push($(items[i]).attr('name'));
+	}
+	
+	let data=[];
+	for(var i=0;i<titleData.length;i++){
+		for(var j=0;j<scenes.length;j++){
+			if(titleData[i]['scene_name']==scenes[j]){
+				data.push(titleData[i]);
+			}
+		}
+	}
+	
 	for(let i = 0; i < data.length; i++) {
 		for(let j = 0; j < sceneList.length; j++) {
 			if(sceneList[j]['name'] == data[i]['scene_name']) {
