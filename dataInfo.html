@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>数据详情</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link href="css/formSelects-v4.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style type="text/css">
+			.btn {
+				width: 88px;
+				text-align: center;
+				height: 32px;
+				line-height: 32px;
+				background: rgba(255, 255, 255, 1);
+				border-radius: 4px;
+				border: 1px solid rgba(204, 204, 204, 1);
+				margin-left: 14px;
+				float: left;
+				margin-top: 10px;
+				box-sizing: border-box;
+				cursor: pointer;
+			}
+			
+			.btn.active {
+				background: rgba(65, 146, 247, 1);
+				border: none;
+				color: #fff
+			}
+			
+			.imgBtn {
+				width: 88px;
+				height: 32px;
+				margin-top: 10px;
+				margin-right: 14px;
+				cursor: pointer;
+			}
+			
+			.layui-table,
+			.layui-table-view {
+				margin: 0
+			}
+			
+			.subscene {
+				display: none;
+			}
+			.tab{
+				overflow: auto;
+			}
+			.layui-form-label{
+				padding: 9px 6px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline time" style="margin-right: 0;">
+					<label class="layui-form-label" style="width: 54px;">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 140px">
+						<select id="time" class="timeLH" lay-filter="lfTimeLH"></select>
+					</div>
+				</div>
+				<div class="layui-inline city">
+					<label class="layui-form-label" style="width: 54px;">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 100px">
+						<select id="city" class="cjCity" lay-filter="lfCjCity"></select>
+					</div>
+				</div>
+				<div class="layui-inline scene">
+					<label class="layui-form-label" style="width: 54px;">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="scene" class="cjSelSingle" lay-filter="lfCjSelSingle"></select>
+					</div>
+				</div>
+				<div class="layui-inline scene-1" style="display: none;">
+					<label class="layui-form-label" style="width: 54px;">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="scene_1" class="cjSelSingle" lay-filter="lfCjSelSingle_1"></select>
+					</div>
+				</div>
+				<!--模糊匹配-->
+				<div class="layui-inline subscene" style="display: none;">
+					<label class="layui-form-label" style="width: 54px;">子场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 140px;">
+						<input type="text" name="HandoverCompany" id="HandoverCompany" class="layui-input" style="position:absolute;z-index:2;width:80%;" lay-verify="required" value="" autocomplete="off">
+						<select type="text" id="subscene" lay-filter="subscene" autocomplete="off" placeholder="移交单位全称" lay-verify="required" class="layui-select" lay-search>
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline subscene-1" style="display: none;">
+					<label class="layui-form-label" style="width: 54px;">子场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 140px;">
+						<input type="text" name="HandoverCompany_1" id="HandoverCompany_1" class="layui-input" style="position:absolute;z-index:2;width:80%;" lay-verify="required" value="" autocomplete="off">
+						<select type="text" id="subscene_1" lay-filter="subscene_1" autocomplete="off" placeholder="移交单位全称" lay-verify="required" class="layui-select" lay-search>
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline iszhicha"  style="display: none;">
+					<label class="layui-form-label">性能质差</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 80px;">
+						<select id="iszhicha" lay-filter="iszhicha">
+							<option value="0" selected="">全部</option>
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline isComplation"  style="display: none;">
+					<label class="layui-form-label">投诉质差</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 80px;">
+						<select id="isComplation" lay-filter="isComplation">
+							<option value="0" selected="">全部</option>
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label"></label>
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="layui-clear groupBtn">
+			<p class="btn active" num="2">场景级</p>
+			<p class="btn" num="1">地市级</p>
+			<p class="btn" num="3">子场景级</p>
+			<p class="btn" num="4">小区级</p>
+			<p class="btn" num="5">实时监控详情</p>
+			<img src="img/export3.png" class="fr imgBtn" />
+		</div>
+		<div class="pd10" style="height: calc(100% - 106px);">
+			<div class="borbg pd14 tab">
+				<table class="layui-table" id="cjCityTab" style="margin-top: 0;overflow: auto;">
+				</table>
+				<div id="page" class="page"></div>
+			</div>
+		</div>
+
+		<script type="text/html" id="barDemo">
+			{{d.date_id.split(' ')[0]}}
+
+		</script>
+		<script type="text/javascript" src="js/config.js" ></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="layui/layui.all.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script src="js/formSelects-v4.js"></script>
+		<script type="text/javascript" src="js/dataInfo.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+	</body>
+
+</html>

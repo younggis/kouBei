@@ -1,0 +1,221 @@
+#header{
+    width:100%;
+    height:59px;
+    background:-webkit-linear-gradient(left, rgba(65,146,247,1) 0%, rgba(13,111,233,1) 100%);
+    /* margin:-10px -10px 0 -10px; */
+}
+.logo{
+    margin:14px 0 0 16px;
+}
+#header ul li{
+    float: right;
+}
+#header li a{
+    color:#fff;
+    display: block;
+    line-height: 59px;
+    padding:0 14px;
+}
+#header li a:hover,#header li a.active{
+    background: #fff;
+    color: #4192F7
+}
+#searchBar{
+    height:44px;
+    width: 100%;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 1px 3px 0px rgba(0,0,0,0.18);
+}
+.sixSit{
+    height:117px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 1px 5px 0px rgba(0,0,0,0.1);
+    border-radius:4px;
+}
+.iconBg{
+    width:44px;
+    height:76px;
+    background:linear-gradient(180deg,rgba(65,107,247,1) 0%,rgba(65,146,247,1) 100%);
+    border-radius:30px;
+    margin:20px 0 0 16px;
+}
+.imgSit{
+    /* width:44px;
+    height:76px; */
+    margin:20px 0 0 10px;
+}
+.wordDes{
+    margin-top:30px;
+    font-size: 12px;
+    float: left !important
+}
+
+@media screen and (max-width: 1366px){
+	.wordDes{margin-left: 6%;}
+	
+}
+@media screen and (min-width: 1920px){
+	.wordDes{margin-left: 14%;}
+}
+.wordDes p.fl{
+    color:#4192F7;
+    margin-right: 13px;
+}
+.wordDes p.fr{
+    width:76px;
+    height:18px;
+    background:#eee;
+    border-radius:2px;
+    margin-top:3px;
+    padding:0 4px;
+    box-sizing: border-box;
+
+}
+
+.green{
+    color:#50AB83;
+ }
+.wordDes .mt7 .fl{
+    color:#999
+ }
+.wordDes .mt7 .green{
+    padding-right:4px;
+}
+
+
+/* 特殊色块 */
+.wordDes .blue{
+    color:#4192F7
+}
+.wordDes .yellow{
+    color:#ECB401;
+}
+.wordDes .pink{
+    color:#E16F6F;
+}
+
+.layui-input, .layui-select, .layui-textarea, .layui-btn{
+    height: 32px;
+}
+.layui-btn{
+    line-height: 32px;
+}
+.espSel{
+    margin-right: 10px;
+    margin-top: 3px;
+
+}
+.espSel .layui-input{
+    border-color: #4192F7;
+    width: 144px;
+    color:#4192F7 !important;
+}
+.espSel .layui-input:hover, .espSel .layui-textarea:hover{
+    border-color: #4192F7;
+}
+.espSel .layui-form-select .layui-edge{
+    display: none
+}
+.espSel .layui-form-select .layui-input{
+    padding-right: 0
+}
+
+
+.mySel{
+    width: 144px;
+    position: absolute;
+    right: 10px;
+    top: -4px;
+}
+
+.scoreDes{
+    position: absolute;
+    color: #999;
+    left: 50%;
+    margin-left: -75px;
+}
+.scoreDes span.fl{
+    width:4px;
+    height:4px;
+    background:rgba(65,146,247,1);
+    border-radius: 50%;
+    margin-right:10px;
+    margin-top:8px;
+}
+.scoreDes span.per{
+    margin-left:17px;
+}
+.scoreDes li{
+    margin-bottom:7px;
+}
+.exportPoint{
+    border-radius:4px;
+    border:1px solid rgba(65,146,247,1);
+    padding:4px 14px;
+    margin-right: 14px;
+    margin-top:6px;
+    cursor: pointer;
+}
+
+.situComp ul{
+    width:40%;
+    margin-top: 10px;
+    color: #999
+}
+.situComp ul li:last-child{
+    margin-bottom: 0
+}
+.situComp .sec{
+    margin-left:6%;
+}
+.situComp li{
+    text-indent: 24px;
+    margin-bottom: 6px;
+    /* line-height: 24px */
+}
+.situComp li.sAirport{
+    background: url(../img/situation/sAirport.png) no-repeat left center;
+}
+.situComp li.sHighSpeed{
+    background: url(../img/situation/sHighSpeed.png) no-repeat left center;
+}
+.situComp li.sFood{
+    background: url(../img/situation/sFood.png) no-repeat left center;
+}
+
+
+.line{
+    width:1px;
+    height:110px;
+    background:rgba(221,221,221,1);
+    position: absolute;
+    top:10px;
+}
+
+.addBtn{
+    width:28px;
+    height:44px;
+    cursor: pointer;
+    background:rgba(255,255,255,1) url(../img/addBtn.png) no-repeat 8px center;
+    background-size:16px 16px; 
+    box-shadow:0px 0px 13px 0px rgba(0,0,0,0.3);
+    border-radius:22px 0px 0px 22px;
+    right: 0;
+    top:270px;
+    position: absolute;
+}
+
+#layerAdd img{
+    width:44px;
+    display: block;
+    margin:0 auto;
+    cursor: pointer;
+}
+ 
+#layerAdd .layui-col-space10{
+    margin:0;
+}
+
+.layui-form{
+	display: inline-flex;
+}

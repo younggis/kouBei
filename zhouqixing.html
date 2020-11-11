@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>周期性</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style type="text/css">
+			.dEcharts {
+				height: 200px;
+			}
+			
+			.itemWDSA {
+				position: absolute;
+				right: 0;
+				top: 10px;
+			}
+			
+			.itemWDSA li {
+				float: left;
+				margin-right: 14px;
+			}
+			
+			.itemWDSA span {
+				display: inline-block;
+				width: 7px;
+				height: 7px;
+				border-radius: 50%;
+			}
+			.dEcharts{
+				height: 260px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline">
+					<label class="layui-form-label">粒度</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 90px">
+						<select class="ld" lay-filter="lfLd">
+							<option value="地市级" selected="">周</option>
+							<!--<option value="场景级">双周</option>
+				        <option value="子场景级">月</option>
+						<option value="地市级">季度</option>
+				        <option value="场景级">年</option>-->
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 200px">
+						<input type="text" class="layui-input" id="dayBeg" />
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="scene" class="cjSelSingle" lay-filter="scene"></select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="city" class="cjCity" lay-filter="city"></select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label"></label>
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+
+			</form>
+		</div>
+		<div class="pd10">
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">场景评分</p>
+						<div class="dEcharts" id="cjScore"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14 posiRel">
+						<p class="">维度评分分析</p>
+						<div class="dEcharts" id="wdScoreAna"></div>
+						<ul class="itemWDSA">
+							<li><span style="background: #E6746E"></span> 客户满意度</li>
+							<li><span style="background: #F6A472"></span> 基础网络</li>
+							<li><span style="background: #EECF00"></span> 网络感知</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">投诉分析</p>
+						<div class="dEcharts" id="comAna"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">工单闭环分析</p>
+						<div class="dEcharts" id="workOrderCloseAna"></div>
+					</div>
+				</div>
+			</div>
+						<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">小区退服</p>
+						<div class="dEcharts" id="community"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">高负荷分析</p>
+						<div class="dEcharts" id="highLoadAna"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script src="layui/layui.all.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script type="text/javascript" src="js/zhouqixing.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>首页</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<link rel="stylesheet" href="css/index.css" />
+		<style type="text/css">
+
+		</style>
+	</head>
+
+	<body>
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline">
+					<label class="layui-form-label">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px;">
+						<select id="time" class="timeChoice" lay-filter="lfTimeAll">
+							<!--<option value="" selected="">周</option>-->
+							<!--<option value="0">双周</option>
+							<option value="1" >月</option>
+							<option value="2">季度</option>
+							<option value="3">年</option>-->
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px;">
+						<select id="cityChoice" lay-filter="lfCity">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline" style="margin-left: 54px;">
+					
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+				<div class="layui-inline" id="content" style="line-height: 38px;margin-left: 50px;">
+					
+				</div>
+				<!-- <div class="layui-inline fr espSel">
+				 	<select name="interest" lay-filter="aihao" class="">
+				 				        <option value="">汇总指标导出</option>
+				 				        <option value="0">地市级</option>
+				 				        <option value="1">场景级</option>
+				 				        
+				 				      </select>	
+				 				    </div>  -->
+				<div class="imgDiv fr posiRel" style="position: absolute;right: 20px;">
+					<img src="img/exportPoint.png" class="exportPoint" />
+					<div class="layui-unselect layui-form-select layui-form-selected mySel" style="display: none">
+						<dl class="layui-anim layui-anim-upbit" style="">
+							<dd lay-value="0" class="">地市级</dd>
+							<dd lay-value="1" class="">场景级</dd>
+						</dl>
+					</div>
+				</div>
+
+			</form>
+		</div>
+		<div class="pd10">
+			<div class="layui-row layui-col-space10" id="titleList" style="height: 254px;">
+
+			</div>
+			<div class="layui-row layui-col-space10" style="height: calc(100% - 249px);">
+				<div class="layui-col-md3" style="height: 100%;">
+					<div class="borbg pd14" style="height: calc(100% - 30px);">
+						<h3 class="title">TOP10高价值质差子场景</h3>
+						<div id="topList" class="table-list" style="height: calc(100% - 31px);">
+							<ul class="list">
+								<li class="row even" style="color: #666666;font-weight: bold;">
+									<div class="cell cell-4">场景名称</div>
+									<div class="cell cell-2">地市</div>
+									<div class="cell cell-2">场景属性</div>
+									<div class="cell cell-2">场景得分</div>
+								</li>
+							</ul>
+							<ul id="subscenelist">
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<div class="layui-col-md5" style="height: 100%;">
+					<div class="borbg pd14" style="height: calc(100% - 30px);">
+						<h3>质差场景地理化呈现</h3>
+						<div class="map" id="map">
+							<div class="legned">
+								<img id="legend" src="img/legend.png" />
+								<img id="legend1" src="img/legend1.png" style="display: none;" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="layui-col-md4" style="height: 100%;display: flex;">
+					<div class="borbg pd14" style="width: 46%;">
+						<h3>场景投诉情况</h3>
+						<div id="tousuScene" class="posiRel situComp layui-clear"  style="height: calc(100% - 21px);overflow-y: auto;">
+							<ul class="fl" id="firstline" style="width:100%">
+								<!--<li class="sAirport">机场<span class="fr">21</span></li>
+								<li class="sHighSpeed">高速<span class="fr">24</span></li>
+								<li class="sFood">美食<span class="fr">31</span></li>
+								<li class="sAirport">机场<span class="fr">21</span></li>-->
+							</ul>
+							<ul class="fl sec" id="secondline">
+								<!--<li class="sAirport">机场<span class="fr">21</span></li>
+								<li class="sHighSpeed">高速<span class="fr">24</span></li>
+								<li class="sFood">美食<span class="fr">31</span></li>
+								<li class="sAirport">机场<span class="fr">21</span></li>-->
+							</ul>
+							<ul class="fr" id="thirdline">
+								<!--<li class="sAirport">机场<span class="fr">21</span></li>
+								<li class="sHighSpeed">高速<span class="fr">24</span></li>
+								<li class="sFood">美食<span class="fr">31</span></li>
+								<li class="sAirport">机场<span class="fr">21</span></li>-->
+							</ul>
+							
+						</div>
+						<!-- <div class="single-scene">
+							<div class="scene-box">
+								<div class="sc_icon scene_detail">
+									<img src="img/images/dishang_font.png" />
+								</div>
+								<div class="sc_name scene_detail">
+									高速
+								</div>
+								<div class="sc_num scene_detail">
+									12
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<div class="borbg pd14 posiRel" style="width: 54%;margin-left:8px;">
+						<h3 class="">三个维度得分情况</h3>
+						<div id="score5" style="height: calc(100% - 120px)"></div>
+						<div style="height:100px;position: relative;">
+							<ul class="scoreDes" >
+								<li><span class="fl"></span>客户满意度<span class="per" id="quality_rate">--%</span></li>
+								<!-- <li><span class="fl"></span>容量<span class="per" id="rongliang_rate">--%</span></li>
+								<li><span class="fl"></span>干扰<span class="per" id="ganrao_rate">--%</span></li> -->
+								<li><span class="fl"></span>基础网络<span class="per" id="base_net_rate">--%</span></li>
+								<li><span class="fl"></span>网络感知<span class="per" id="net_preption_rate">--%</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="addBtn"></div>
+
+		<div class="app">
+			<div id="layerAdd">
+				<p class="pd14 ft16">请选择想要查询的场景</p>
+				<div class="layui-row layui-col-space10" id="queryList">
+					<div class="layui-col-md3">
+						<img src="img/images/ditie_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/gaosu_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/gaotie_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/gaoxiao_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/jichang_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/jiaotongshuniu_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/jiudian_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/jumingqu_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/meijing_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/food_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/shangyequ_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/yiyuan_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/gandao_unactive.png">
+					</div>
+					<div class="layui-col-md3">
+						<img src="img/images/dishang_unactive.png">
+					</div>
+				</div>
+				<div class="app-btn">
+					<hr style="margin: 0; border-color:#E7E7E7;width: 100%;">
+					<button type="button" id="cancel" class="layui-btn layui-btn-radius layui-btn-primary">取消</button>
+					<button type="button" id="sure" class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="layui/layui.all.js"></script>
+		<script src="js/ol.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/sichuan.js"></script>
+		<script type="text/javascript" src="js/turf.min.js" ></script>
+		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script type="text/javascript" src="js/index.js?v=20200525"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+	</body>
+
+</html>

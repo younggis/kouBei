@@ -1,0 +1,175 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.title{
+	margin-bottom: 10px;
+}
+.app {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 199;
+	display: none;
+	overflow: hidden;
+}
+
+#layerAdd {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #fff;
+	height: 100%;
+	width: 440px;
+	z-index: 99;
+}
+
+.app-btn {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 120px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 120px;
+}
+
+.layui-btn {
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	cursor: pointer;
+}
+
+.layui-btn+.layui-btn {
+	margin-left: 80px;
+}
+
+.map {
+	width: 100%;
+	height: calc(100% - 20px);
+	position: relative;
+}
+
+.add-box {
+	width: 100%;
+	height: 117px;
+	text-align: center;
+	line-height: 117px;
+	display: list-item;
+	list-style: none;
+	cursor: pointer;
+}
+
+.imgSit {
+	cursor: pointer;
+}
+
+.wordDes a img {
+	margin-top: -4px;
+}
+
+.wordDes .orange {
+	color: #FF8800;
+}
+
+.wordDes a {
+	display: list-item;
+	list-style: none;
+}
+
+.situComp li {
+	text-indent: 10px !important;
+}
+
+
+.legned {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 99;
+    box-shadow: 0 0 10px hsla(0, 0%, 40%, .65);
+    border-radius: 6px;
+}
+.legned img{
+	height: 150px;
+}
+
+.single-scene{
+	width: 100%;
+    height: 120px;
+    position: relative;
+    display: none;
+}
+.scene-box{
+	width: 280px;
+    height: 60px;
+    background-color: #F5F5F5;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    left: 50%;
+    margin-left: -140px;
+}
+
+.scene_detail{
+	height: 60px;
+    line-height: 60px;
+    width: 33.33%;
+    float: left;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #E16F6F;
+}
+.scene_detail img{
+	height: 44px;
+    margin-top: 8px;
+}
+#tousuScene::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 4px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 4px;
+}
+
+#tousuScene::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#tousuScene::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 0;
+	background: rgba(0, 0, 0, 0.1);
+}
+#topList::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 4px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 4px;
+}
+
+#topList::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#topList::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 0;
+	background: rgba(0, 0, 0, 0.1);
+}

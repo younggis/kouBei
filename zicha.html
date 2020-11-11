@@ -1,0 +1,731 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>实时质差场景监控</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link href="css/formSelects-v4.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style type="text/css">
+			.zicha-city,
+			.zicha-city-title {
+				height: calc(40% - 10px);
+				width: calc(100% - 10px);
+				position: relative;
+				display: -webkit-flex;
+				cursor: pointer;
+				border-radius: 4px 4px 0 0;
+			}
+
+			.zicha-index {
+				height: calc(20% - 10px);
+				width: calc(100% - 10px);
+				position: relative;
+				display: -webkit-flex;
+			}
+
+			.h20 {
+				height: 20%;
+			}
+
+			.h60 {
+				height: 60%;
+			}
+
+			.h100 {
+				height: 100%;
+			}
+
+			.pd5 {
+				padding: 5px;
+			}
+
+			.zicha-index-bg {
+				box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+				border-radius: 4px;
+				background-color: white;
+			}
+
+			.fc {
+				justify-content: center;
+				align-items: center;
+			}
+
+			.fl {
+				justify-content: left;
+				align-items: center;
+			}
+
+			.bcb {
+				background-color: #F5F5F5;
+			}
+
+			.color-blue {
+				color: #4192F7
+			}
+
+			.color-green {
+				color: #31D3D7
+			}
+
+			.color-red {
+				color: #F68B71;
+			}
+
+			.index-font {
+				font-weight: 800;
+				font-size: 14px;
+				color: #999999;
+			}
+
+			.title-font {
+				font-size: 12px;
+				font-weight: 500;
+				color: #999999;
+			}
+
+			.map-common {
+				background-size: 80% 150%;
+				background-repeat: no-repeat;
+				background-position: top;
+			}
+
+			.mapbc-0 {
+				background-image: url(./img/map/chengdu1.png);
+
+			}
+
+			.mapbc-active-0 {
+				background-image: url(./img/map/chengdu2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-1 {
+				background-image: url(./img/map/tianfu1.png);
+
+			}
+
+			.mapbc-active-1 {
+				background-image: url(./img/map/tianfu2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-2 {
+				background-image: url(./img/map/aba1.png);
+
+			}
+
+			.mapbc-active-2 {
+				background-image: url(./img/map/aba2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-3 {
+				background-image: url(./img/map/mianyang1.png);
+
+			}
+
+			.mapbc-active-3 {
+				background-image: url(./img/map/mianyang2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-4 {
+				background-image: url(./img/map/guangyuan1.png);
+
+			}
+
+			.mapbc-active-4 {
+				background-image: url(./img/map/guangyuan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-5 {
+				background-image: url(./img/map/bazhong1.png);
+
+			}
+
+			.mapbc-active-5 {
+				background-image: url(./img/map/bazhong2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-6 {
+				background-image: url(./img/map/dazou1.png);
+
+			}
+
+			.mapbc-active-6 {
+				background-image: url(./img/map/dazou2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-7 {
+				background-image: url(./img/map/guangan1.png);
+
+			}
+
+			.mapbc-active-7 {
+				background-image: url(./img/map/guangan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-8 {
+				background-image: url(./img/map/nanchong1.png);
+
+			}
+
+			.mapbc-active-8 {
+				background-image: url(./img/map/nanchong2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-9 {
+				background-image: url(./img/map/suining1.png);
+
+			}
+
+			.mapbc-active-9 {
+				background-image: url(./img/map/suining2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-10 {
+				background-image: url(./img/map/ganzi1.png);
+
+			}
+
+			.mapbc-active-10 {
+				background-image: url(./img/map/ganzi2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-11 {
+				background-image: url(./img/map/liangshan1.png);
+
+			}
+
+			.mapbc-active-11 {
+				background-image: url(./img/map/liangshan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-12 {
+				background-image: url(./img/map/panzhihua1.png);
+
+			}
+
+			.mapbc-active-12 {
+				background-image: url(./img/map/panzhihua2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-13 {
+				background-image: url(./img/map/deyang1.png);
+
+			}
+
+			.mapbc-active-13 {
+				background-image: url(./img/map/deyang2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-14 {
+				background-image: url(./img/map/yibin1.png);
+
+			}
+
+			.mapbc-active-14 {
+				background-image: url(./img/map/yibin2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-15 {
+				background-image: url(./img/map/luzou1.png);
+
+			}
+
+			.mapbc-active-15 {
+				background-image: url(./img/map/luzou2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-16 {
+				background-image: url(./img/map/zigong1.png);
+
+			}
+
+			.mapbc-active-16 {
+				background-image: url(./img/map/zigong2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-17 {
+				background-image: url(./img/map/leshan1.png);
+
+			}
+
+			.mapbc-active-17 {
+				background-image: url(./img/map/leshan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-18 {
+				background-image: url(./img/map/neijiang1.png);
+
+			}
+
+			.mapbc-active-18 {
+				background-image: url(./img/map/neijiang2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-19 {
+				background-image: url(./img/map/ziyang1.png);
+
+			}
+
+			.mapbc-active-19 {
+				background-image: url(./img/map/ziyang2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-20 {
+				background-image: url(./img/map/meishan1.png);
+
+			}
+
+			.mapbc-active-20 {
+				background-image: url(./img/map/meishan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.mapbc-21 {
+				background-image: url(./img/map/yaan1.png);
+
+			}
+
+			.mapbc-active-21 {
+				background-image: url(./img/map/yaan2.png);
+				background-color: #4192F7;
+				color: #FFFFFF;
+			}
+
+			.table-title {
+				font-size: 16px;
+				font-weight: 800;
+				color: #333333;
+				height: 40px;
+				line-height: 40px;
+			padding-left: 16px;
+			}
+
+			.zicha-row {
+				display: inline-flex;
+				height: 32px;
+				line-height: 32px;
+				width: 100%;
+				color: #666666;
+				font-size: 12px;
+				font-weight: bold;
+			}
+			.zicha-cell-row{
+				display: inline-flex;
+				height: 10%;
+				width: 100%;
+				color: #666666;
+				font-size: 12px;
+				justify-content: center;
+				align-items: center;
+			}
+			.zicha-cell-1{
+				padding-left: 16px;
+			}
+			.zicha-cell-2{
+				text-align: center;
+			}
+			.cell-1{
+				width:10%
+			}
+			.cell-2-5{
+				width:25%
+			}
+			.even{
+				background: #F5F5F5;
+			}
+			#zicha-list{
+				height: calc(100% - 32px);
+				width:100%
+			}
+			.hchart{
+				height: calc(50% - 5px);
+				border-radius: 4px;
+				position: relative;
+			}
+			.chart-title{
+				position: absolute;
+				top:10px;
+				left: 16px;
+				font-size: 16px;
+				font-weight: 800;
+				color:#333333
+			}
+			.chart-box{
+				height: 100%;
+				width: 100%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline" style="margin-right: 0;">
+					<label class="layui-form-label">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width:120px">
+						<select id="time" lay-filter="time">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline city">
+					<label class="layui-form-label">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="city" lay-filter="city">
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-inline">
+					<label class="layui-form-label"></label>
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+
+			</form>
+		</div>
+		<div class="pd10">
+			<div class="layui-row layui-col-space10 h20 city-detail">
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 title-font">
+						<div class="zicha-city-title fl pd5">地市</div>
+						<div class="zicha-index fl pd5 bcb">子场景数量</div>
+						<div class="zicha-index fl pd5">质差场景数</div>
+						<div class="zicha-index fl pd5 bcb">超长超频质差场景数</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-0" onclick="changeBc(0)">成都</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-1" onclick="changeBc(1)">天府新区</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-2" onclick="changeBc(2)">阿坝</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-3" onclick="changeBc(3)">绵阳</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-4" onclick="changeBc(4)">广元</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-5" onclick="changeBc(5)">巴中</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-6" onclick="changeBc(6)">达州</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-7" onclick="changeBc(7)">广安</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-8" onclick="changeBc(8)">南充</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-9" onclick="changeBc(9)">遂宁</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-10" onclick="changeBc(10)">甘孜</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10 h20 city-detail">
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 title-font">
+						<div class="zicha-city-title fl pd5">地市</div>
+						<div class="zicha-index fl pd5 bcb">子场景数量</div>
+						<div class="zicha-index fl pd5">质差场景数</div>
+						<div class="zicha-index fl pd5 bcb">超长超频质差场景数</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-11" onclick="changeBc(11)">凉山</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-12" onclick="changeBc(12)">攀枝花</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-13" onclick="changeBc(13)">德阳</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-14" onclick="changeBc(14)">宜宾</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-15" onclick="changeBc(15)">泸州</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-16" onclick="changeBc(16)">自贡</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-17" onclick="changeBc(17)">乐山</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-18" onclick="changeBc(18)">内江</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-19" onclick="changeBc(19)">资阳</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-20" onclick="changeBc(20)">眉山</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+				<div class="layui-col-md1 h100">
+					<div class="zicha-index-bg h100 index-font">
+						<div class="zicha-city   fc pd5 map-common mapbc-21" onclick="changeBc(21)">雅安</div>
+						<div class="zicha-index  fc pd5 bcb color-blue">234</div>
+						<div class="zicha-index  fc pd5 color-green">345</div>
+						<div class="zicha-index  fc pd5 bcb color-red">3456</div>
+					</div>
+				</div>
+			</div>
+
+            <div class="layui-row layui-col-space10 h20 city-scene">
+				<div class="layui-col-md2 h100">
+					<!-- <div class="zicha-index-bg h100 title-font">
+					</div> -->
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-row layui-col-space10 h20 city-scene">
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 title-font">
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-row layui-col-space10 h60">
+				<div class="layui-col-md4 h100" style=" border-radius: 4px;">
+					<div class="borbg  h100">
+						<p class="table-title">TOP10质差场景场景</p>
+						<div id="topList" class="table-list" style="height: calc(100% - 40px);">
+							<ul class="list">
+								<li class="zicha-row even">
+									<div class="zicha-cell-1 cell-4">场景名称</div>
+									<div class="zicha-cell-1 cell-1">地市</div>
+									<div class="zicha-cell-2 cell-2-5">场景属性</div>
+									<div class="zicha-cell-2 cell-2-5">场景得分</div>
+								</li>
+							</ul>
+							<ul id="zicha-list">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md8 h100">
+				    <div class="borbg hchart  w100" style="margin-bottom: 10px;">
+						<div class="chart-title">质差场景数</div>
+						<div class="chart-box" id="zccj-chart"></div>
+					</div>
+					<div class="borbg hchart  w100">
+						<div class="chart-title">超长超频质差场景数</div>
+						<div class="chart-box" id="cccp-chart"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="layui/layui.all.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script src="js/formSelects-v4.js"></script>
+
+		<script type="text/javascript" src="js/zicha.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+	</body>
+
+</html>

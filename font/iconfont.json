@@ -1,0 +1,72 @@
+{
+  "id": "1519586",
+  "name": "口碑场景",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18125146",
+      "name": "实时质差场景监控",
+      "font_class": "shishizhichachangjingjiankong",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "17493605",
+      "name": "口碑场景实时保障",
+      "font_class": "koubeichangjingshishibaozhang",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "12415220",
+      "name": "舆情保障信息分析",
+      "font_class": "yuqingbaozhangxinxifenxi",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "11874279",
+      "name": "场景信息实时更新",
+      "font_class": "changjingxinxishishigengxin",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "11874278",
+      "name": "节假日管控",
+      "font_class": "jiejiariguankong",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "11874277",
+      "name": "数据详情",
+      "font_class": "shujuxiangqing",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "11874265",
+      "name": "周期性指标监控",
+      "font_class": "zhouqixingzhibiaojiankong",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "11874247",
+      "name": "多维度监控",
+      "font_class": "duoweidujiankong",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "11874186",
+      "name": "评估体系",
+      "font_class": "pinggutixi",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    }
+  ]
+}

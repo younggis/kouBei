@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style>
+			
+			
+			ul {
+				list-style: none;
+			}
+			
+			.childpage {
+				height: calc(100% - 59px);
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				border: none;
+				background-color: #EFEFEF;
+				overflow: hidden;
+			}
+			
+		</style>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="header">
+			<img src="img/logo.png" class="fl logo">
+			<ul class="menu-list">
+				<li page="nowInfo.html">
+					<a href="javascript:void(0)"><span class="iconfont iconchangjingxinxishishigengxin"></span> 场景信息实时更新</a>
+				</li>
+				<li page="guarantee.html">
+					<a href="javascript:void(0)"><span class="iconfont iconkoubeichangjingshishibaozhang"></span> 口碑场景实时保障</a>
+				</li>
+				<li page="holiday.html">
+					<a href="javascript:void(0)"><span class="iconfont iconjiejiariguankong"></span> 节假日管控</a>
+				</li>
+				<li page="dataInfo.html">
+					<a href="javascript:void(0)"><span class="iconfont iconshujuxiangqing"></span> 数据详情</a>
+				</li>
+				<li page="zhouqixing.html">
+					<a href="javascript:void(0)"><span class="iconfont iconzhouqixingzhibiaojiankong"></span> 周期性指标监控</a>
+				</li>
+				<li page="duoweidu.html">
+					<a href="javascript:void(0)"><span class="iconfont iconduoweidujiankong"></span> 多维度监控</a>
+				</li>
+				<li page="zicha.html">
+					<a href="javascript:void(0)"><span class="iconfont iconshishizhichachangjingjiankong"></span> 实时质差场景监控</a>
+				</li>
+				<li page="index.html">
+					<a href="javascript:void(0)" class="active"><span class="iconfont iconpinggutixi"></span> 全省口碑场景评估体系</a>
+				</li>
+
+			</ul>
+		</div>
+		<div class="childpage">
+			<iframe id="ifrm" src="index.html"></iframe>
+		</div>
+	</body>
+	<script>
+		$(function() {
+			$('.menu-list li').on('click', function() {
+				$(this).siblings('li').each(function(){
+					$(this).find('a').removeClass('active');
+				})
+				$(this).find('a').addClass('active');
+				$('#ifrm').attr('src', $(this).attr('page'));
+			})
+		})
+		
+		
+		
+		function changeMenu(time, city, scene,subScene,isBad,isComplation) {
+			$('.menu-list li').siblings('li').each(function(){
+				$('.menu-list li').find('a').removeClass('active');
+			})
+			$('.menu-list li:eq(3)').find('a').addClass('active');
+			$('#ifrm').attr('src','dataInfo.html?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene+ '&isBad='+isBad+ '&isComplation='+isComplation);
+			// $('#ifrm').attr('src','dataInfo.html?city=巴中&time=2020-09-29 12&scene=服务区&subScene=泸州市叙永县高桥服务区&isBad=1');
+		}
+	</script>
+
+</html>

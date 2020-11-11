@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>场景信息实时更新</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link href="css/formSelects-v4.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style type="text/css">
+			.itemPoint {
+				width: 144px;
+				margin: 44px auto;
+				color: #999;
+			}
+			
+			.longWord {
+				width: 60%;
+			}
+			
+			.longWord .word {
+				white-space: nowrap;
+			}
+			
+			.page6Bg {
+				height: 205px;
+				width: 100%;
+				background: url(img/page6/bg.png) left top;
+			}
+			
+			#page6Ech {
+				height: 165px;
+				background: linear-gradient(315deg, rgba(65, 146, 247, 0.6) 0%, rgba(49, 6, 127, 0.6) 100%);
+				border-radius: 4px;
+				//opacity:0.6;
+				margin-top: 15px;
+				margin-left: 10px;
+			}
+			
+			.wordEch {
+				width: 14px;
+				height: 90px;
+				font-size: 16px;
+				font-family: PingFang-SC-Heavy, PingFang-SC;
+				font-weight: 800;
+				color: rgba(227, 227, 227, 1);
+				line-height: 23px;
+				position: absolute;
+				right: 14px;
+				top: 47px;
+			}
+			
+			img {
+				cursor: pointer;
+			}
+			
+			.mubanDown {
+				position: absolute;
+				right: 14px;
+				bottom: 14px;
+				height: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline" style="margin-right: 0;">
+					<label class="layui-form-label">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="time" class="timeLH" lay-filter="lfTimeLH">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline" style="margin-right: 0;">
+					<label class="layui-form-label">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="scene" class="cjSelSingle" lay-filter="lfCjSelSingle"></select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="city" class="cjCity" lay-filter="lfCjCity"></select>
+					</div>
+				</div>
+
+				<!-- <div class="layui-inline">
+			    					<label class="layui-form-label" style="width: auto;">至</label>
+			    					<div class="layui-input-inline" style="margin-top: 3px">
+			    						<input type="text" class="layui-input" id="dayEnd"  />
+			    					</div>
+			    				</div> -->
+				<div class="layui-inline">
+					<label class="layui-form-label"></label>
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+
+			</form>
+		</div>
+		<div class="pd10">
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md4">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/one.png" class="fl" />
+							<div class="fr">
+								<p class="ft19 word1"></p>
+								<p>目前子场景数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md4">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/two.png" class="fl" />
+							<div class="fr">
+								<p class="ft19 word2"></p>
+								<p>新增子场景数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md4">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/three.png" class="fl" />
+							<div class="fr">
+								<p class="ft19 word3"></p>
+								<p>目前网元清单数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md3">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/four.png" class="fl" />
+							<div class="fr">
+								<p class="ft19 word4"></p>
+								<p>新增网元数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md3">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/five.png" class="fl" />
+							<div class="fr">
+								<p class="ft19 word5"></p>
+								<p>减少网元数</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="layui-col-md3">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/six.png" class="fl" />
+							<div class="fr longWord">
+								<p class="ft19 word6"></p>
+								<p class="word">涉及新增网元清单场景数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md3">
+					<div class="borbg pd14">
+						<div class="layui-clear itemPoint">
+							<img src="img/page6/six.png" class="fl" />
+							<div class="fr longWord">
+								<p class="ft19 word7"></p>
+								<p class="word">涉及减少网元清单场景数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="page6Bg" style="position: absolute;bottom: 0;">
+			<div class="layui-row layui-col-space10" style="margin:0">
+				<div class="layui-col-md6 posiRel">
+					<div id="page6Ech"></div>
+					<p class="wordEch">场<br/>景<br/>分<br/>析</p>
+				</div>
+				<div class="layui-col-md6 posiRel">
+					<div class="layui-clear" style="width: 440px;margin:70px auto">
+						<img src="img/page6/btn1.png" class="fl exportData" />
+						<img src="img/page6/btn2.png" class="fr inData" />
+					</div>
+					<img src="img/page6/btn3.png" class="mubanDown" style="display: none" />
+				</div>
+			</div>
+		</div>
+
+		<div id="exDataHtml" style="display: none;">
+			<form class="layui-form" style="margin-top: 15px;margin-right: 24px;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">时间筛选</label>
+					<div class="layui-input-block">
+						<select id="exporttime" class="timeEx" lay-filter="lfTimeEx"></select>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div id="inDataHtml" style="display: none;">
+			<form class="layui-form" style="margin-top: 15px;margin-right: 24px;display: inline-table;;">
+				<div class="layui-form-item">
+					<label class="layui-form-label">时间筛选</label>
+					<div class="layui-input-block">
+						<select  id="importtime" class="timeEx2" lay-filter="lfTimeEx2"></select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">上传文件</label>
+					<div class="layui-input-block">
+						<input type="file" accept=".csv" id="addFile" />
+					</div>
+				</div>
+				<div class="layui-form-item" style="margin-bottom: 0">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn layui-btn-warm layui-btn-radius downMB">模板下载</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script src="layui/layui.all.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script src="js/formSelects-v4.js"></script>
+		<script type="text/javascript" src="js/nowInfo.js"></script>
+		<script type="text/javascript" src="js/public.js" ></script>
+	</body>
+
+</html>

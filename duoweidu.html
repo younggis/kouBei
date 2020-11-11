@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>多维度</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="css/common.css" media="all">
+		<link href="css/formSelects-v4.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/koubei.css" media="all">
+		<link rel="stylesheet" href="./font/iconfont.css">
+		<style type="text/css">
+			.dEcharts {
+				height: 200px;
+			}
+			
+			.scoreItem {
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+				width: 100%;
+			}
+			
+			.scoreItem li {
+				float: left;
+				width: 20%;
+				text-align: center;
+			}
+			
+			.scoreItem .ft19 {
+				color: #4192F7;
+				margin-bottom: 4px
+			}
+			
+			.consIcon {
+				position: absolute;
+				top: 7px;
+				right: 0;
+			}
+			
+			.consIcon li {
+				float: left;
+				margin-right: 24px;
+				padding-right: 30px;
+				color: #999;
+				line-height: 24px;
+			}
+			
+			.scene{
+				display: none;
+			}
+			.multiscene{
+				display: none;
+			}
+			.subscene{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div id="searchBar" class="">
+			<form class="layui-form" action="" style="padding-top:3px">
+				<div class="layui-inline">
+					<label class="layui-form-label">维度</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id='wd' class="wd" lay-filter="lfWd">
+							<option value="city" selected="">地市级</option>
+							<option value="scene">场景级</option>
+							<option value="subscene">子场景级</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline city">
+					<label class="layui-form-label">地市</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px">
+						<select id="city" lay-filter="city">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline scene">
+					<label class="layui-form-label">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px;">
+						<select  id="scene" lay-filter="scene">
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline multiscene">
+					<label class="layui-form-label">场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 120px;">
+						<select name="multiscene" id="multiscene" lay-filter="multiscene" xm-select="scene" xm-select-skin="default"  xm-select-height="38px">
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline subscene">
+					<label class="layui-form-label">子场景</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 180px;">
+						<!--<select id="subscene" lay-filter="subscene">
+						</select>-->
+						<input type="text" name="HandoverCompany" id="HandoverCompany" class="layui-input" style="position:absolute;z-index:2;width:80%;" lay-verify="required" value="" autocomplete="off">
+						<select type="text" id="subscene" lay-filter="subscene" autocomplete="off" placeholder="移交单位全称" lay-verify="required" class="layui-select" lay-search>
+							
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline" style="margin-right: 0;">
+					<label class="layui-form-label">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 200px">
+						<input type="text" class="layui-input" id="dayBeg" />
+					</div>
+				</div>
+				
+				<div class="layui-inline">
+					<label class="layui-form-label"></label>
+					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
+						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						查询
+					</button>
+				</div>
+
+			</form>
+		</div>
+		<div class="pd10">
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">场景评分</p>
+						<div class="dEcharts" id="chartA"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">质差场景数</p>
+						<div class="dEcharts" id="chartB"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md3">
+					<div class="borbg pd14">
+						<p class="">TOP场景</p>
+						<div class="table-list" style="height: 200px;">
+							<ul class="list">
+								<li class="row even" style="color: #666666;font-weight: bold;">
+									<div class="cell cell-5" id="parentName">地市</div>
+									<div class="cell cell-5" id="childName">场景</div>
+								</li>
+							</ul>
+							<ul id="subscenelist">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-md3">
+					<div class="borbg pd14 posiRel">
+						<p class="">三个维度得分情况</p>
+						<div id="chartJ" class="dEcharts"></div>
+						<ul class="scoreItem">
+							<li style="width: 33%;">
+								<p id="quality_rate"></p>
+								<p>客户满意度</p>
+							</li>
+							<li style="width: 33%;">
+								<p id="base_net_rate"></p>
+								<p>基础网络</p>
+							</li>
+							<li style="width: 33%;">
+								<p id="net_preption_rate"></p>
+								<p>网络感知</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">问题小区数</p>
+						<div class="dEcharts" id="chartC"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">规建维优分类问题数</p>
+						<div class="dEcharts" id="chartD"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">规划达成率</p>
+						<div class="dEcharts" id="chartE"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14 posiRel">
+						<p class="">建设完成率</p>
+						<div class="dEcharts" id="chartF"></div>
+						<ul class="consIcon">
+							<li style="background: url(img/bar.png) no-repeat right center;padding-right:20px">超工期未开通量</li>
+							<li style="background: url(img/line.png) no-repeat right center;">有效开通率</li>
+						</ul>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">维护-小区退服率</p>
+						<div class="dEcharts" id="chartG"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-row layui-col-space10">
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">工单-闭环率</p>
+						<div class="dEcharts" id="chartH"></div>
+					</div>
+				</div>
+				<div class="layui-col-md6">
+					<div class="borbg pd14">
+						<p class="">投诉-匹配现网网络问题数</p>
+						<div class="dEcharts" id="chartI"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script src="layui/layui.all.js"></script>
+		<script type="text/javascript" src="echarts/echarts.min.js"></script>
+		<script src="js/formSelects-v4.js"></script>
+		
+		<script type="text/javascript" src="js/duoweidu.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+	</body>
+
+</html>
