@@ -341,7 +341,7 @@
 				color: #333333;
 				height: 40px;
 				line-height: 40px;
-			padding-left: 16px;
+				padding-left: 16px;
 			}
 
 			.zicha-row {
@@ -353,7 +353,8 @@
 				font-size: 12px;
 				font-weight: bold;
 			}
-			.zicha-cell-row{
+
+			.zicha-cell-row {
 				display: inline-flex;
 				height: 10%;
 				width: 100%;
@@ -362,43 +363,143 @@
 				justify-content: center;
 				align-items: center;
 			}
-			.zicha-cell-1{
+
+			.zicha-cell-1 {
 				padding-left: 16px;
 			}
-			.zicha-cell-2{
+
+			.zicha-cell-2 {
 				text-align: center;
 			}
-			.cell-1{
-				width:10%
+
+			.cell-1 {
+				width: 10%
 			}
-			.cell-2-5{
-				width:25%
+
+			.cell-2-5 {
+				width: 25%
 			}
-			.even{
+
+			.even {
 				background: #F5F5F5;
 			}
-			#zicha-list{
+
+			#zicha-list {
 				height: calc(100% - 32px);
-				width:100%
+				width: 100%
 			}
-			.hchart{
+
+			.hchart {
 				height: calc(50% - 5px);
 				border-radius: 4px;
 				position: relative;
 			}
-			.chart-title{
+
+			.chart-title {
 				position: absolute;
-				top:10px;
+				top: 10px;
 				left: 16px;
 				font-size: 16px;
 				font-weight: 800;
-				color:#333333
+				color: #333333
 			}
-			.chart-box{
+
+			.chart-box {
 				height: 100%;
 				width: 100%;
 			}
-			
+
+			.scene-font {
+				font-size: 12px font-weight: 500;
+				color: #999999;
+			}
+
+			.scene-common {
+				background-size: 50% 60%;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+			.city-scene {
+				/* display: none; */
+			}
+
+			.scene-gaosu {
+				background-image: url(./img/images/gaosu.png);
+			}
+
+			.scene-gaoxiao {
+				background-image: url(./img/images/gaoxiao.png);
+			}
+            .scene-ditie{
+				background-image: url(./img/images/ditie.png);
+			}
+			.scene-tingche{
+				background-image: url(./img/images/tingche.png);
+			}
+			.scene-fuwuqu{
+				background-image: url(./img/images/fuwuqu.png);
+			}
+			.scene-zhengfu{
+				background-image: url(./img/images/zhengfu.png);
+			}
+			.scene-changguan{
+				background-image: url(./img/images/changguan.png);
+			}
+			.scene-jikong{
+				background-image: url(./img/images/jikong.png);
+			}
+			.scene-gaotie{
+				background-image: url(./img/images/gaotie.png);
+			}
+			.scene-jichang{
+				background-image: url(./img/images/jichang.png);
+			}
+			.scene-jiaotongshuniu{
+				background-image: url(./img/images/jiaotongshuniu.png);
+			}
+			.scene-jiudian{
+				background-image: url(./img/images/jiudian.png);
+			}
+			.scene-jumingqu{
+				background-image: url(./img/images/jumingqu.png);
+			}
+			.scene-meijing{
+				background-image: url(./img/images/meijing.png);
+			}
+			.scene-food{
+				background-image: url(./img/images/food.png);
+			}
+			.scene-shangyequ{
+				background-image: url(./img/images/shangyequ.png);
+			}
+			.scene-yiyuan{
+				background-image: url(./img/images/yiyuan.png);
+			}
+			.scene-gandao{
+				background-image: url(./img/images/gandao.png);
+			}
+			.scene-dishang{
+				background-image: url(./img/images/dishang.png);
+			}
+			.scene-index {
+				margin: 5px 0;
+				height: 20px;
+				line-height: 20px;
+				font-size: 12px;
+				font-weight: 500;
+				color: #999999;
+				width: 100%;
+
+			}
+
+			.scene-box {
+				width: 100%;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
 		</style>
 	</head>
 
@@ -630,60 +731,74 @@
 				</div>
 			</div>
 
-            <div class="layui-row layui-col-space10 h20 city-scene">
-				<div class="layui-col-md2 h100">
-					<!-- <div class="zicha-index-bg h100 title-font">
-					</div> -->
-				</div>
-				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
-					</div>
-				</div>
-				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
-					</div>
-				</div>
-				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
-					</div>
-				</div>
-				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
-					</div>
-				</div>
-				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
-					</div>
-				</div>
-			</div>
-			
 			<div class="layui-row layui-col-space10 h20 city-scene">
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
+					<!-- 	<div class="layui-col-md4 h100 scene-gaosu scene-common"></div>
+						<div class="layui-col-md8 h100">
+							<div class="scene-box">
+								<div class="scene-index">
+									<span>子场景数量：</span><span class="color-blue"></span>
+								</div>
+								<div class="scene-index">
+									<span>质差场景数：</span><span class="color-green"></span>
+								</div>
+								<div class="scene-index">
+									<span>超长超频质差场景数：</span><span class="color-red"></span>
+								</div>
+							</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
-					<div class="zicha-index-bg h100 title-font">
+					<div class="zicha-index-bg h100 scene-font">
 					</div>
 				</div>
 			</div>
-			
+
+			<div class="layui-row layui-col-space10 h20 city-scene">
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+				<div class="layui-col-md2 h100">
+					<div class="zicha-index-bg h100 scene-font">
+					</div>
+				</div>
+			</div>
+
 			<div class="layui-row layui-col-space10 h60">
 				<div class="layui-col-md4 h100" style=" border-radius: 4px;">
 					<div class="borbg  h100">
@@ -703,7 +818,7 @@
 					</div>
 				</div>
 				<div class="layui-col-md8 h100">
-				    <div class="borbg hchart  w100" style="margin-bottom: 10px;">
+					<div class="borbg hchart  w100" style="margin-bottom: 10px;">
 						<div class="chart-title">质差场景数</div>
 						<div class="chart-box" id="zccj-chart"></div>
 					</div>
@@ -723,7 +838,7 @@
 		<script src="layui/layui.all.js"></script>
 		<script type="text/javascript" src="echarts/echarts.min.js"></script>
 		<script src="js/formSelects-v4.js"></script>
-
+        <script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/zicha.js"></script>
 		<script type="text/javascript" src="js/public.js"></script>
 	</body>

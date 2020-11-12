@@ -9,10 +9,10 @@ const sceneList = [{
 		name: '服务区',
 		url: 'img/images/fuwuqu.png'
 	},
-	// {
-	// 	name: '政府办公区',
-	// 	url: 'img/images/zhengfu.png'
-	// },
+	{
+		name: '政府办公区',
+		url: 'img/images/zhengfu.png'
+	},
 	{
 		name: '场馆',
 		url: 'img/images/changguan.png'
@@ -38,10 +38,10 @@ const sceneList = [{
 		name: '酒店',
 		url: 'img/images/jiudian.png'
 	},
-	// {
-	// 	name: '居民区',
-	// 	url: 'img/images/jumingqu.png'
-	// },
+	{
+		name: '居民区',
+		url: 'img/images/jumingqu.png'
+	},
 	{
 		name: '美景',
 		url: 'img/images/meijing.png'
@@ -1360,3 +1360,107 @@ const guaranteeConfig = [[{
 		title: '投诉数量',
 		width: 120
 	}]] ;
+	
+
+const sceneBgList = [{
+		name: '地铁',
+		activeIcon:'scene-ditie',
+		icon:''
+	},
+	{
+		name: '停车场',
+		url: 'img/images/tingche.png',
+		activeIcon:'scene-tingche',
+		icon:''
+	}, {
+		name: '服务区',
+		url: 'img/images/fuwuqu.png',
+		activeIcon:'scene-fuwuqu',
+		icon:''
+		
+	},
+	{
+		name: '政府办公区',
+		url: 'img/images/zhengfu.png',
+		activeIcon:'scene-zhengfu',
+		icon:''
+	},
+	{
+		name: '场馆',
+		url: 'img/images/changguan.png',
+		activeIcon:'scene-changguan',
+		icon:''
+	}, {
+		name: '疾控中心',
+		url: 'img/images/jikong.png',
+		activeIcon:'scene-jikong',
+		icon:''
+	}, {
+		name: '高速',
+		url: 'img/images/gaosu.png',
+		activeIcon:'scene-gaosu',
+		icon:''
+	}, {
+		name: '高铁',
+		url: 'img/images/gaotie.png',
+		activeIcon:'scene-gaotie',
+		icon:''
+	}, {
+		name: '高校',
+		url: 'img/images/gaoxiao.png',
+		activeIcon:'scene-gaoxiao',
+		icon:''
+	}, {
+		name: '机场',
+		url: 'img/images/jichang.png',
+		activeIcon:'scene-jichang',
+		icon:''
+	}, {
+		name: '交通枢纽',
+		url: 'img/images/jiaotongshuniu.png',
+		activeIcon:'scene-jiaotongshuniu',
+		icon:''
+	}, {
+		name: '酒店',
+		url: 'img/images/jiudian.png',
+		activeIcon:'scene-jiudian',
+		icon:''
+	},
+	{
+		name: '居民区',
+		url: 'img/images/jumingqu.png',
+		activeIcon:'scene-jumingqu',
+		icon:''
+	},
+	{
+		name: '美景',
+		url: 'img/images/meijing.png',
+		activeIcon:'scene-meijing',
+		icon:''
+	}, {
+		name: '美食',
+		url: 'img/images/food.png',
+		activeIcon:'scene-food',
+		icon:''
+	}, {
+		name: '商业区',
+		url: 'img/images/shangyequ.png',
+		activeIcon:'scene-shangyequ',
+		icon:''
+	}, {
+		name: '医院',
+		url: 'img/images/yiyuan.png',
+		activeIcon:'scene-yiyuan',
+		icon:''
+	}, {
+		name: '城区干道',
+		url: 'img/images/gandao.png',
+		activeIcon:'scene-gandao',
+		icon:''
+	}, {
+		name: '底商',
+		url: 'img/images/dishang.png',
+		activeIcon:'scene-dishang',
+		icon:''
+	}
+]

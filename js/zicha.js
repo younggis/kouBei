@@ -32,6 +32,36 @@ function addList(data) {
 
 }
 
+function addScene(data) {
+	console.log(data);
+	$('.scene-font').each((index, item) => {
+		$(item).html = '';
+		let html = '';
+		let bgClass = sceneBgList.filter(item =>{
+			return item.name == data[index]
+		})[0].activeIcon;
+		console.log(bgClass);
+		html =
+			`
+		<div class="layui-col-md4 h100  ${bgClass} scene-common"></div>
+		<div class="layui-col-md8 h100">
+			<div class="scene-box">
+				<div class="scene-index">
+					<span>子场景数量：</span><span class="color-blue"></span>
+				</div>
+				<div class="scene-index">
+					<span>质差场景数：</span><span class="color-green"></span>
+				</div>
+				<div class="scene-index">
+					<span>超长超频质差场景数：</span><span class="color-red"></span>
+				</div>
+			</div>
+		</div>
+		`;
+		$(item).html(html);
+	})
+}
+
 
 function showEchart(id, xData, data, color, chartObj) {
 	let option = {
@@ -224,14 +254,16 @@ function init() {
 	showEchart('zccj-chart', xData, a, '#31D3D7', chartObj);
 	showEchart('cccp-chart', xData, b, '#F68B71', chartObj);
 
+    var zichaSceneList = ["疾控中心", "服务区", "商业区", "高铁", "居民区", "地铁", "高速", "高校", "政府办公区", "医院", "底商", "停车场"];
 
 	layerForm.on('select(city)', function(data) {
 		if (data.value != '全省') {
 			$(".city-detail").css('display', 'none');
-			$('.city-scene').css('display','block');
+			$('.city-scene').css('display', 'block');
+			addScene(zichaSceneList)
 		} else {
 			$(".city-detail").css('display', 'block');
-			$('.city-scene').css('display','none')
+			$('.city-scene').css('display', 'none')
 		}
 	});
 
