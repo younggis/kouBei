@@ -9,10 +9,11 @@ const sceneList = [{
 		name: '服务区',
 		url: 'img/images/fuwuqu.png'
 	},
-	{
-		name: '政府办公区',
-		url: 'img/images/zhengfu.png'
-	},
+	 {
+	 	name: '政府办公区',
+	 	url: 'img/images/zhengfu.png'
+	 },
+
 	{
 		name: '场馆',
 		url: 'img/images/changguan.png'
