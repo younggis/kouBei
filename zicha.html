@@ -421,7 +421,7 @@
 			}
 
 			.city-scene {
-				/* display: none; */
+				display: none;
 			}
 
 			.scene-gaosu {
@@ -431,57 +431,75 @@
 			.scene-gaoxiao {
 				background-image: url(./img/images/gaoxiao.png);
 			}
-            .scene-ditie{
+
+			.scene-ditie {
 				background-image: url(./img/images/ditie.png);
 			}
-			.scene-tingche{
+
+			.scene-tingche {
 				background-image: url(./img/images/tingche.png);
 			}
-			.scene-fuwuqu{
+
+			.scene-fuwuqu {
 				background-image: url(./img/images/fuwuqu.png);
 			}
-			.scene-zhengfu{
+
+			.scene-zhengfu {
 				background-image: url(./img/images/zhengfu.png);
 			}
-			.scene-changguan{
+
+			.scene-changguan {
 				background-image: url(./img/images/changguan.png);
 			}
-			.scene-jikong{
+
+			.scene-jikong {
 				background-image: url(./img/images/jikong.png);
 			}
-			.scene-gaotie{
+
+			.scene-gaotie {
 				background-image: url(./img/images/gaotie.png);
 			}
-			.scene-jichang{
+
+			.scene-jichang {
 				background-image: url(./img/images/jichang.png);
 			}
-			.scene-jiaotongshuniu{
+
+			.scene-jiaotongshuniu {
 				background-image: url(./img/images/jiaotongshuniu.png);
 			}
-			.scene-jiudian{
+
+			.scene-jiudian {
 				background-image: url(./img/images/jiudian.png);
 			}
-			.scene-jumingqu{
+
+			.scene-jumingqu {
 				background-image: url(./img/images/jumingqu.png);
 			}
-			.scene-meijing{
+
+			.scene-meijing {
 				background-image: url(./img/images/meijing.png);
 			}
-			.scene-food{
+
+			.scene-food {
 				background-image: url(./img/images/food.png);
 			}
-			.scene-shangyequ{
+
+			.scene-shangyequ {
 				background-image: url(./img/images/shangyequ.png);
 			}
-			.scene-yiyuan{
+
+			.scene-yiyuan {
 				background-image: url(./img/images/yiyuan.png);
 			}
-			.scene-gandao{
+
+			.scene-gandao {
 				background-image: url(./img/images/gandao.png);
 			}
-			.scene-dishang{
+
+			.scene-dishang {
 				background-image: url(./img/images/dishang.png);
 			}
+
 			.scene-index {
 				margin: 5px 0;
 				height: 20px;
@@ -500,6 +518,77 @@
 				top: 50%;
 				transform: translate(-50%, -50%);
 			}
+
+			.zicha-addBtn {
+				width: 28px;
+				height: 44px;
+				cursor: pointer;
+				background: rgba(255, 255, 255, 1) url(./img/addBtn.png) no-repeat 8px center;
+				background-size: 16px 16px;
+				box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.3);
+				border-radius: 22px 0px 0px 22px;
+				right: 0;
+				top: 270px;
+				position: absolute;
+				display: none;
+			}
+
+			.zicha-app {
+				position: absolute;
+				width: 100%;
+				top: 0;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.4);
+				z-index: 199;
+				display: none;
+				overflow: hidden;
+			}
+
+			#zichaAdd {
+				position: absolute;
+				top: 0;
+				right: 0;
+				background: #fff;
+				height: 100%;
+				width: 440px;
+				z-index: 99;
+			}
+
+			#zichaAdd img {
+				width: 44px;
+				display: block;
+				margin: 0 auto;
+				cursor: pointer;
+			}
+
+			.zicha-app-btn {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 120px;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 120px;
+			}
+
+			.zicha-app-btn .layui-btn {
+				width: 120px;
+				height: 36px;
+				line-height: 36px;
+				cursor: pointer;
+			}
+
+			.layui-btn+.layui-btn {
+				margin-left: 80px;
+			}
+
+			.zicha-imgBtn {
+				width: 88px;
+				height: 32px;
+				margin-top: 5px;
+				margin-right: 20px;
+				cursor: pointer;
+			}
 		</style>
 	</head>
 
@@ -509,7 +598,7 @@
 			<form class="layui-form" action="" style="padding-top:3px">
 				<div class="layui-inline" style="margin-right: 0;">
 					<label class="layui-form-label">时间</label>
-					<div class="layui-input-inline" style="margin-top: 3px;width:120px">
+					<div class="layui-input-inline" style="margin-top: 3px;width:200px">
 						<select id="time" lay-filter="time">
 						</select>
 					</div>
@@ -529,8 +618,8 @@
 						查询
 					</button>
 				</div>
-
 			</form>
+			<!-- <img src="./img/export3.png" class="fr zicha-imgBtn"> -->
 		</div>
 		<div class="pd10">
 			<div class="layui-row layui-col-space10 h20 city-detail">
@@ -734,20 +823,6 @@
 			<div class="layui-row layui-col-space10 h20 city-scene">
 				<div class="layui-col-md2 h100">
 					<div class="zicha-index-bg h100 scene-font">
-					<!-- 	<div class="layui-col-md4 h100 scene-gaosu scene-common"></div>
-						<div class="layui-col-md8 h100">
-							<div class="scene-box">
-								<div class="scene-index">
-									<span>子场景数量：</span><span class="color-blue"></span>
-								</div>
-								<div class="scene-index">
-									<span>质差场景数：</span><span class="color-green"></span>
-								</div>
-								<div class="scene-index">
-									<span>超长超频质差场景数：</span><span class="color-red"></span>
-								</div>
-							</div>
-						</div> -->
 					</div>
 				</div>
 				<div class="layui-col-md2 h100">
@@ -809,7 +884,7 @@
 									<div class="zicha-cell-1 cell-4">场景名称</div>
 									<div class="zicha-cell-1 cell-1">地市</div>
 									<div class="zicha-cell-2 cell-2-5">场景属性</div>
-									<div class="zicha-cell-2 cell-2-5">场景得分</div>
+									<div class="zicha-cell-2 cell-2-5">出现频次</div>
 								</li>
 							</ul>
 							<ul id="zicha-list">
@@ -830,15 +905,26 @@
 
 			</div>
 		</div>
+		<div class="zicha-addBtn"></div>
+		<div class="zicha-app">
+			<div id="zichaAdd">
+				<p class="pd14 ft16">请选择想要查询的场景</p>
+				<div class="layui-row layui-col-space10" id="zhichaSceneSelect" style="padding-top: 20px;">
+				</div>
+				<div class="zicha-app-btn">
+					<hr style="margin: 0; border-color:#E7E7E7;width: 100%;">
+					<button type="button" id="zicha-cancel" class="layui-btn layui-btn-radius layui-btn-primary">取消</button>
+					<button type="button" id="zicha-sure" class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
+				</div>
 
-
+			</div>
 
 		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script src="layui/layui.all.js"></script>
 		<script type="text/javascript" src="echarts/echarts.min.js"></script>
 		<script src="js/formSelects-v4.js"></script>
-        <script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/zicha.js"></script>
 		<script type="text/javascript" src="js/public.js"></script>
 	</body>

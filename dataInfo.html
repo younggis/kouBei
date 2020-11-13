@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="./font/iconfont.css">
 		<style type="text/css">
 			.btn {
-				width: 88px;
+				min-width: 88px;
 				text-align: center;
 				height: 32px;
 				line-height: 32px;
@@ -23,6 +23,7 @@
 				margin-top: 10px;
 				box-sizing: border-box;
 				cursor: pointer;
+				padding: 0 10px;
 			}
 			
 			.btn.active {
@@ -64,6 +65,12 @@
 					<label class="layui-form-label" style="width: 54px;">时间</label>
 					<div class="layui-input-inline" style="margin-top: 3px;width: 140px">
 						<select id="time" class="timeLH" lay-filter="lfTimeLH"></select>
+					</div>
+				</div>
+				<div class="layui-inline time-1" style="margin-right: 0;">
+					<label class="layui-form-label" style="width: 54px;">时间</label>
+					<div class="layui-input-inline" style="margin-top: 3px;width: 200px">
+						<select id="time_1" class="timeLH" lay-filter="lfTimeLH_1"></select>
 					</div>
 				</div>
 				<div class="layui-inline city">
@@ -140,6 +147,9 @@
 			<p class="btn" num="3">子场景级</p>
 			<p class="btn" num="4">小区级</p>
 			<p class="btn" num="5">实时监控详情</p>
+			<p class="btn" num="6">质差库--实时质差场景</p>
+			<p class="btn" num="7">场景级--实时质差场景</p>
+			<p class="btn" num="8">小区级--实时质差场景</p>
 			<img src="img/export3.png" class="fr imgBtn" />
 		</div>
 		<div class="pd10" style="height: calc(100% - 106px);">

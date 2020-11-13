@@ -1,6 +1,6 @@
 //项目统一路径
-const baseUrl="http://223.86.3.47:28080/api/";
-// const baseUrl="http://10.110.39.173:8080/api/";
+// const baseUrl="http://223.86.3.47:28080/api/";
+const baseUrl="http://10.110.39.173:8080/api/";
 var layerLayer = null;
 var layerDate = null;
 var layerForm = null;

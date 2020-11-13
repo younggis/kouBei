@@ -63,6 +63,18 @@ function init() {
 						executeQuery();
 					}, 200)
 				})
+				$$('scene/badQualityTimeList', {}, function(result) {
+					timeList = result;
+					let timelist = [];
+					let data = result;
+					for (var i = 0; i < data.length; i++) {
+						timelist.push({
+							label: data[i],
+							value: data[i]
+						})
+					}
+					_addOption('time_1', timelist);
+				})
 			})
 		})
 	})
@@ -79,29 +91,39 @@ function init() {
 		$('.subscene').hide();
 		$('.scene-1').hide();
 		$('.subscene-1').hide();
+		$('.time-1').hide();
+		$('.time').hide();
 		
 		if (flag == 1) {
 			$('.scene').hide();
 			$('.subscene').hide();
+			$('.time').show();
 			data = timeList.city;
 		} else if (flag == 2) {
 			$('.scene').show();
 			$('.subscene').hide();
+			$('.time').show();
 			data = timeList.scene;
 		} else if (flag == 3) {
 			$('.scene').show();
 			$('.subscene').show();
+			$('.time').show();
 			data = timeList.subScene;
 		} else if (flag == 4) {
 			$('.scene').show();
 			$('.subscene').show();
+			$('.time').show();
 			data = timeList.cell;
 		} else if (flag == 5) {
 			$('.scene-1').show();
 			$('.subscene-1').show();
 			$('.iszhicha').show();
 			$('.isComplation').show();
+			$('.time').show();
 			data = timeList.hourTime;
+		}else{
+			$('.time-1').show();
+			$('.scene').show();
 		}
 		for (var i = 0; i < data.length; i++) {
 			timelist.push({
@@ -273,7 +295,15 @@ $('.imgBtn').click(function() {
 		let isComplation = $("#isComplation").val();
 		
 		window.open(baseUrl + 'Scene/hourSceneCellPage?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene+ '&isBad='+isBad+ '&isComplation='+isComplation);
-	} else {
+	}else if(flag == 6 || flag ==7 || flag == 8 ){
+		let time = dealDate($('#time_1').val());
+		let city = $('#city').val();
+		let scene = $('#scene').val();
+		console.log(baseUrl + 'scene/badQualityExport?time=' + time + '&city=' + city+
+			'&scene=' + scene + '&flag=' + (flag-5));
+		window.open(baseUrl + 'scene/badQualityExport?time=' + time + '&city=' + city+
+			'&scene=' + scene + '&flag=' + (flag-5));
+	}else {
 		window.open(baseUrl + 'Scene/ExportData?time=' + $('.timeLH').val().replace(/-/g, '') + '&city=' + $('.cjCity').val() +
 			'&scene=' + $('.cjSelSingle').val() + '&flag=' + flag + '&subscene=');
 	}
@@ -312,6 +342,18 @@ function executeQuery(pageindex) {
 		$$('Scene/hourSceneCellPage', params, (result) => {
 			renderTotalTable(result);
 		})
+	}else if(flag == 6 || flag == 7||  flag == 8){
+		let params = {
+			time: dealDate($('#time_1').val()),
+			city: city,
+			scene:$('#scene').val(),
+			flag: flag-5,
+			pageIndex: pageindex,
+			pageSize: tableNumber
+		}
+		$$('scene/badQualityDataPage', params, (result) => {
+			renderTotalTable(result);
+		})
 	}else{
 		let scene = $('#scene').val();
 		let subscene = $("#HandoverCompany").val();
@@ -338,6 +380,12 @@ function renderTotalTable(result) {
 		config = cellConfig;
 	} else if (flag == 5) {
 		config = guaranteeConfig;
+	}else if(flag == 6){
+		config = zicakuConfig
+	}else if(flag == 7){
+		config = zicachangjingConfig 
+	}else if(flag == 8){
+		config = zicaxiaoquConfig
 	}
 	layerTable.render({
 		elem: '#cjCityTab',
@@ -367,4 +415,11 @@ function renderTotalTable(result) {
 			}
 		}
 	});
+}
+
+function dealDate(date) {
+	let list = date.split(' ');
+	let a1 = list[0].replace(/-/g, '');
+	let a2 = list[1].replace(/:/g, '');
+	return a1 + a2;
 }

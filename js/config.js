@@ -9,10 +9,10 @@ const sceneList = [{
 		name: '服务区',
 		url: 'img/images/fuwuqu.png'
 	},
-	 {
-	 	name: '政府办公区',
-	 	url: 'img/images/zhengfu.png'
-	 },
+	{
+		name: '政府办公区',
+		url: 'img/images/zhengfu.png'
+	},
 
 	{
 		name: '场馆',
@@ -1236,7 +1236,8 @@ const holidayConfig = [
 ];
 
 
-const guaranteeConfig = [[{
+const guaranteeConfig = [
+	[{
 		field: 'TIME',
 		title: '时间',
 		width: 140
@@ -1360,108 +1361,371 @@ const guaranteeConfig = [[{
 		field: 'tousu_num',
 		title: '投诉数量',
 		width: 120
-	}]] ;
-	
+	}]
+];
+
 
 const sceneBgList = [{
 		name: '地铁',
-		activeIcon:'scene-ditie',
-		icon:''
+		activeIcon: 'scene-ditie',
+		icon: ''
 	},
 	{
 		name: '停车场',
 		url: 'img/images/tingche.png',
-		activeIcon:'scene-tingche',
-		icon:''
+		activeIcon: 'scene-tingche',
+		icon: ''
 	}, {
 		name: '服务区',
 		url: 'img/images/fuwuqu.png',
-		activeIcon:'scene-fuwuqu',
-		icon:''
-		
+		activeIcon: 'scene-fuwuqu',
+		icon: ''
+
 	},
 	{
 		name: '政府办公区',
 		url: 'img/images/zhengfu.png',
-		activeIcon:'scene-zhengfu',
-		icon:''
+		activeIcon: 'scene-zhengfu',
+		icon: ''
 	},
 	{
 		name: '场馆',
 		url: 'img/images/changguan.png',
-		activeIcon:'scene-changguan',
-		icon:''
+		activeIcon: 'scene-changguan',
+		icon: ''
 	}, {
 		name: '疾控中心',
 		url: 'img/images/jikong.png',
-		activeIcon:'scene-jikong',
-		icon:''
+		activeIcon: 'scene-jikong',
+		icon: ''
 	}, {
 		name: '高速',
 		url: 'img/images/gaosu.png',
-		activeIcon:'scene-gaosu',
-		icon:''
+		activeIcon: 'scene-gaosu',
+		icon: ''
 	}, {
 		name: '高铁',
 		url: 'img/images/gaotie.png',
-		activeIcon:'scene-gaotie',
-		icon:''
+		activeIcon: 'scene-gaotie',
+		icon: ''
 	}, {
 		name: '高校',
 		url: 'img/images/gaoxiao.png',
-		activeIcon:'scene-gaoxiao',
-		icon:''
+		activeIcon: 'scene-gaoxiao',
+		icon: ''
 	}, {
 		name: '机场',
 		url: 'img/images/jichang.png',
-		activeIcon:'scene-jichang',
-		icon:''
+		activeIcon: 'scene-jichang',
+		icon: ''
 	}, {
 		name: '交通枢纽',
 		url: 'img/images/jiaotongshuniu.png',
-		activeIcon:'scene-jiaotongshuniu',
-		icon:''
+		activeIcon: 'scene-jiaotongshuniu',
+		icon: ''
 	}, {
 		name: '酒店',
 		url: 'img/images/jiudian.png',
-		activeIcon:'scene-jiudian',
-		icon:''
+		activeIcon: 'scene-jiudian',
+		icon: ''
 	},
 	{
 		name: '居民区',
 		url: 'img/images/jumingqu.png',
-		activeIcon:'scene-jumingqu',
-		icon:''
+		activeIcon: 'scene-jumingqu',
+		icon: ''
 	},
 	{
 		name: '美景',
 		url: 'img/images/meijing.png',
-		activeIcon:'scene-meijing',
-		icon:''
+		activeIcon: 'scene-meijing',
+		icon: ''
 	}, {
 		name: '美食',
 		url: 'img/images/food.png',
-		activeIcon:'scene-food',
-		icon:''
+		activeIcon: 'scene-food',
+		icon: ''
 	}, {
 		name: '商业区',
 		url: 'img/images/shangyequ.png',
-		activeIcon:'scene-shangyequ',
-		icon:''
+		activeIcon: 'scene-shangyequ',
+		icon: ''
 	}, {
 		name: '医院',
 		url: 'img/images/yiyuan.png',
-		activeIcon:'scene-yiyuan',
-		icon:''
+		activeIcon: 'scene-yiyuan',
+		icon: ''
 	}, {
 		name: '城区干道',
 		url: 'img/images/gandao.png',
-		activeIcon:'scene-gandao',
-		icon:''
+		activeIcon: 'scene-gandao',
+		icon: ''
 	}, {
 		name: '底商',
 		url: 'img/images/dishang.png',
-		activeIcon:'scene-dishang',
-		icon:''
+		activeIcon: 'scene-dishang',
+		icon: ''
 	}
+]
+
+const zicakuConfig = [
+	[{
+		field: 'time',
+		title: '时间',
+		minWidth: 200,
+	}, {
+		field: 'a_02',
+		title: '地市',
+		align:'center',
+		width: 114
+	}, {
+		field: 'a_03',
+		title: '场景类别',
+		align:'center',
+		width: 114
+	}, {
+		field: 'a_04',
+		title: '场景名称',
+		width: 157
+	}, {
+		field: 'a_05',
+		title: '小区数',
+		width: 140
+	}, {
+		field: 'a_06',
+		title: 'VOLTE高掉话小区占比是否超过门限值',
+		width: 300,
+		align:'center',
+	}, {
+		field: 'a_07',
+		title: 'VOLTE低接通小区占比是否超过门限值',
+		width: 300,
+		align:'center',
+	},{
+		field: 'a_08',
+		title: '低用户感知速率小区占比是否超过门限值',
+		width: 300,
+		align:'center',
+	},{
+		field: 'a_09',
+		title: '上行高干扰小区占比是否超过门限值',
+		width: 300,
+		align:'center',
+	},{
+		field: 'a_10',
+		title: '故障是否超过门限值',
+		width: 157,
+		align:'center',
+	},{
+		field: 'a_11',
+		title: '投诉是否超过门限值',
+		width: 157,
+		align:'center',
+	},{
+		field: 'a_12',
+		title: '触发时间',
+		width: 200
+	},{
+		field: 'a_13',
+		title: '触发时间列表',
+		width: 200
+	},{
+		field: 'a_14',
+		title: '短信发送时间',
+		width: 200
+	},{
+		field: 'a_15',
+		title: '是否闭环(连续12小时)',
+		width: 200,
+		align:'center',
+	},{
+		field: 'a_16',
+		title: '闭环时间',
+		width: 150
+	}
+	]
+]
+
+const zicaxiaoquConfig = [
+	[{
+		field: 'time',
+		title: '时间',
+		minWidth: 200,
+	}, {
+		field: 'a_02',
+		title: '地市',
+		width: 114,
+		align:'center'
+	}, {
+		field: 'a_03',
+		title: '场景类别',
+		width: 114,
+		align:'center'
+	}, {
+		field: 'a_04',
+		title: '场景名称',
+		width: 200
+	}, {
+		field: 'a_05',
+		title: '小区名称',
+		width: 200,
+	}, {
+		field: 'a_06',
+		title: 'CGI',
+		width: 200,
+		align:'center'
+	}, {
+		field: 'a_07',
+		title: '制式',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_08',
+		title: 'VOLTE掉话率',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_09',
+		title: '是否为VOLTE高掉话小区',
+		width: 200,
+		align:'center'
+	},{
+		field: 'a_10',
+		title: 'VOLTE接通率',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_11',
+		title: '是否为VOLTE低接通小区',
+		width: 200,
+		align:'center'
+	},{
+		field: 'a_12',
+		title: '用户感知速率',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_13',
+		title: '是否为低用户感知速率小区',
+		width: 200,
+		align:'center'
+	},{
+		field: 'a_14',
+		title: '小区上行高干扰平均电平',
+		width: 200,
+		align:'center'
+	},{
+		field: 'a_15',
+		title: '是否为行高干扰',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_16',
+		title: '告警名称',
+		width: 157
+	},{
+		field: 'a_17',
+		title: '是否告警',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_18',
+		title: '投诉量',
+		width: 157,
+		align:'center'
+	},{
+		field: 'a_19',
+		title: '是否投诉',
+		width: 157,
+		align:'center'
+	},
+	]
+]
+
+const zicachangjingConfig = [
+	[{
+		field: 'time',
+		title: '时间',
+		minWidth: 200,
+	}, {
+		field: 'a_02',
+		title: '地市',
+		width: 114,
+		align:'center',
+	}, {
+		field: 'a_03',
+		title: '场景类别',
+		width: 114,
+		align:'center',
+	}, {
+		field: 'a_04',
+		title: '场景名称',
+		width: 200
+	}, {
+		field: 'a_05',
+		title: '高掉话问题数',
+		width: 140,
+		align:'center',
+	}, {
+		field: 'a_06',
+		title: '低接通问题数',
+		width: 140,
+		align:'center',
+	}, {
+		field: 'a_07',
+		title: '高干扰问题数',
+		width: 140,
+		align:'center',
+	},{
+		field: 'a_08',
+		title: '告警问题数',
+		width: 140,
+		align:'center',
+	},{
+		field: 'a_09',
+		title: '投诉问题数',
+		width: 140,
+		align:'center',
+	},{
+		field: 'a_10',
+		title: '低感知问题数',
+		width: 140,
+		align:'center',
+	},{
+		field: 'a_11',
+		title: '场景数量',
+		width: 140,
+		align:'center',
+	},{
+		field: 'a_12',
+		title: '是否高掉话',
+		width: 150,
+		align:'center',
+	},{
+		field: 'a_13',
+		title: '是否地接通',
+		width: 150,
+		align:'center',
+	},{
+		field: 'a_14',
+		title: '是否高干扰',
+		width: 150,
+		align:'center',
+	},{
+		field: 'a_15',
+		title: '是否地感知',
+		width: 150,
+		align:'center',
+	},{
+		field: 'a_16',
+		title: '是否告警问题',
+		width: 157,
+		align:'center',
+	},{
+		field: 'a_17',
+		title: '是否投诉问题',
+		width: 157,
+		align:'center',
+	}
+	]
 ]
