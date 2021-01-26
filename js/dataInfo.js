@@ -125,6 +125,9 @@ function init() {
 			$('.time-1').show();
 			$('.scene').show();
 		}
+		if(flag==6){
+			$('.time-1').hide();
+		}
 		for (var i = 0; i < data.length; i++) {
 			timelist.push({
 				label: flag == 5 ?data[i].substring(0, 13):data[i].substring(0, 10),
@@ -294,8 +297,16 @@ $('.imgBtn').click(function() {
 		let isBad = $("#iszhicha").val();
 		let isComplation = $("#isComplation").val();
 		
-		window.open(baseUrl + 'Scene/hourSceneCellPage?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene+ '&isBad='+isBad+ '&isComplation='+isComplation);
-	}else if(flag == 6 || flag ==7 || flag == 8 ){
+		window.open(baseUrl + 'Scene/ExportHourSceneCell?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene+ '&isBad='+isBad+ '&isComplation='+isComplation);
+	}else if(flag == 6){
+		let time = '20200101';
+		let city = $('#city').val();
+		let scene = $('#scene').val();
+		console.log(baseUrl + 'scene/badQualityExport?time=' + time + '&city=' + city+
+			'&scene=' + scene + '&flag=' + (flag-5));
+		window.open(baseUrl + 'scene/badQualityExport?time=' + time + '&city=' + city+
+			'&scene=' + scene + '&flag=' + (flag-5));
+	}else if(flag ==7 || flag == 8 ){
 		let time = dealDate($('#time_1').val());
 		let city = $('#city').val();
 		let scene = $('#scene').val();
@@ -342,7 +353,19 @@ function executeQuery(pageindex) {
 		$$('Scene/hourSceneCellPage', params, (result) => {
 			renderTotalTable(result);
 		})
-	}else if(flag == 6 || flag == 7||  flag == 8){
+	}else if(flag == 6){
+		let params = {
+			time: '20200101',
+			city: city,
+			scene:$('#scene').val(),
+			flag: flag-5,
+			pageIndex: pageindex,
+			pageSize: tableNumber
+		}
+		$$('scene/badQualityDataPage', params, (result) => {
+			renderTotalTable(result);
+		})
+	}else if(flag == 7||  flag == 8){
 		let params = {
 			time: dealDate($('#time_1').val()),
 			city: city,
