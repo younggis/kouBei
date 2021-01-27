@@ -740,6 +740,15 @@ a:hover {
 	text-overflow: ellipsis;
 	/*文字超出部分以省略号显示*/
 }
+.cell-6 {
+	width: 60%;
+	white-space: nowrap;
+	/*内容超宽后禁止换行显示*/
+	overflow: hidden;
+	/*超出部分隐藏*/
+	text-overflow: ellipsis;
+	/*文字超出部分以省略号显示*/
+}
 .cell-5 {
 	width: 50%;
 	white-space: nowrap;

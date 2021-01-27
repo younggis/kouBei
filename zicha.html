@@ -35,6 +35,14 @@
 				height: 60%;
 			}
 
+			.h15 {
+				height: 15%;
+			}
+
+			.h70 {
+				height: 70%;
+			}
+
 			.h100 {
 				height: 100%;
 			}
@@ -589,6 +597,54 @@
 				margin-right: 20px;
 				cursor: pointer;
 			}
+
+			.zicha-swicth {
+				margin-left: 100px;
+			}
+
+			.zicha-swicth .layui-form-switch {
+				padding: 5px 20px;
+				margin-top: 2px;
+			}
+
+			.zicha-swicth .layui-form-switch i {
+				top: 5px;
+				width: 20px;
+				height: 20px;
+			}
+
+			.zicha-swicth .layui-form-switch em {
+				font-size: 16px;
+			}
+
+			.zicha-box .layui-col-md1 {
+				width: calc(8.33333333% - 2px);
+			}
+
+			.zicha-map {
+				/* background-color: #fff; */
+			}
+
+			.h10 {
+				height: 10%;
+			}
+
+			.map-title {
+				font-size: 18px;
+				font-weight: bold;
+				background-color: #fff;
+				border-bottom: 1px solid #CCCCCC;
+				align-items: center;
+				display: flex;
+				padding-left: 10px;
+			}
+
+			#map {
+				height: 90%;
+				width: 100%;
+				background-color: #fff;
+			}
+			}
 		</style>
 	</head>
 
@@ -618,12 +674,19 @@
 						查询
 					</button>
 				</div>
+				<div class="layui-inline zicha-swicth">
+					<!-- <label class="layui-form-label"></label> -->
+					<input type="checkbox" checked="" name="switch" lay-skin="switch" lay-filter="switchTest" lay-text="场景|地市">
+					<!-- 	<div class=""layui-input-inline">
+						 <input type="checkbox" checked="" name="switch" lay-skin="switch" lay-filter="switchTest" lay-text="场景|地市">
+					</div> -->
+				</div>
 			</form>
 			<!-- <img src="./img/export3.png" class="fr zicha-imgBtn"> -->
 		</div>
-		<div class="pd10">
-			<div class="layui-row layui-col-space10 h20 city-detail">
-				<div class="layui-col-md1 h100">
+		<div class="pd10 zicha-box">
+			<div class="layui-row layui-col-space10 h15 city-detail">
+				<div class="layui-col-md1 h100" style="width:calc(8.33333333% + 20px)">
 					<div class="zicha-index-bg h100 title-font">
 						<div class="zicha-city-title fl pd5">地市</div>
 						<div class="zicha-index fl pd5 bcb">子场景数量</div>
@@ -721,8 +784,8 @@
 				</div>
 			</div>
 
-			<div class="layui-row layui-col-space10 h20 city-detail">
-				<div class="layui-col-md1 h100">
+			<div class="layui-row layui-col-space10 h15 city-detail">
+				<div class="layui-col-md1 h100" style="width:calc(8.33333333% + 20px)">
 					<div class="zicha-index-bg h100 title-font">
 						<div class="zicha-city-title fl pd5">地市</div>
 						<div class="zicha-index fl pd5 bcb">子场景数量</div>
@@ -820,7 +883,7 @@
 				</div>
 			</div>
 
-			<div class="layui-row layui-col-space10 h20 city-scene">
+			<div class="layui-row layui-col-space10 h15 city-scene">
 				<div class="layui-col-md2 h100">
 					<div class="zicha-index-bg h100 scene-font">
 					</div>
@@ -847,7 +910,7 @@
 				</div>
 			</div>
 
-			<div class="layui-row layui-col-space10 h20 city-scene">
+			<div class="layui-row layui-col-space10 h15 city-scene">
 				<div class="layui-col-md2 h100">
 					<div class="zicha-index-bg h100 scene-font">
 					</div>
@@ -874,17 +937,18 @@
 				</div>
 			</div>
 
-			<div class="layui-row layui-col-space10 h60">
-				<div class="layui-col-md4 h100" style=" border-radius: 4px;">
+			<div class="layui-row layui-col-space10 h70">
+				<div class="layui-col-md2 h100" style=" border-radius: 4px;">
 					<div class="borbg  h100">
 						<p class="table-title">TOP10质差场景场景</p>
 						<div id="topList" class="table-list" style="height: calc(100% - 40px);">
 							<ul class="list">
 								<li class="zicha-row even">
-									<div class="zicha-cell-1 cell-4">场景名称</div>
-									<div class="zicha-cell-1 cell-1">地市</div>
-									<div class="zicha-cell-2 cell-2-5">场景属性</div>
-									<div class="zicha-cell-2 cell-2-5">出现频次</div>
+									<div class="zicha-cell-1 cell-6">场景名称</div>
+									<div class="zicha-cell-1 cell-4">质差小区数</div>
+									<!-- <div class="zicha-cell-1 cell-1">地市</div> -->
+									<!-- <div class="zicha-cell-2 cell-2-5">场景属性</div>
+									<div class="zicha-cell-2 cell-2-5">出现频次</div> -->
 								</li>
 							</ul>
 							<ul id="zicha-list">
@@ -892,7 +956,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="layui-col-md8 h100">
+				<div class="layui-col-md6 h100 zicha-map">
+					<div class="map-title h10 ">
+						GIS呈现
+					</div>
+					<div id="map">
+
+					</div>
+				</div>
+				<div class="layui-col-md4 h100">
 					<div class="borbg hchart  w100" style="margin-bottom: 10px;">
 						<div class="chart-title">质差场景数</div>
 						<div class="chart-box" id="zccj-chart"></div>
@@ -905,6 +977,7 @@
 
 			</div>
 		</div>
+
 		<div class="zicha-addBtn"></div>
 		<div class="zicha-app">
 			<div id="zichaAdd">
