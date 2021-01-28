@@ -1,8 +1,9 @@
 let map = null;
-let vectorLayer = null;
-let labelLayer = null;
+let warnLayer = null;
+let heatmapLayer = null;
+let sectorLayer = null;
 let sceneLayer = null;
-let locLayer = null;
+
 let format = new ol.format.WKT(); //数据格式转换
 
 let allData = [];
@@ -22,96 +23,59 @@ function initMap() {
 			minZoom: 4
 		})
 	});
-	vectorLayer = new ol.layer.Vector({
+	sceneLayer = new ol.layer.Vector({
 		source: new ol.source.Vector({
 			features: []
 		})
 	});
-	map.addLayer(vectorLayer);
-	labelLayer = new ol.layer.Vector({
+	map.addLayer(sceneLayer);
+	heatmapLayer = new ol.layer.Heatmap({
 		source: new ol.source.Vector({
 			features: []
 		})
 	});
-	map.addLayer(labelLayer);
+	map.addLayer(heatmapLayer);
+	warnLayer = new ol.layer.Vector({
+		source: new ol.source.Vector({
+			features: []
+		})
+	});
+	map.addLayer(warnLayer);
+	sectorLayer = new ol.layer.Vector({
+		source: new ol.source.Vector({
+			features: []
+		})
+	});
+	map.addLayer(sectorLayer);
 
-	let features = sichuanData.features;
-	for(let i = 0; i < features.length; i++) {
-		let polygon = new ol.geom.Polygon(transform(features[i]['geometry']['coordinates']));
-		let feature = new ol.Feature(polygon);
-		let style = new ol.style.Style({
-			stroke: new ol.style.Stroke({
-				color: '#4192F7',
-				width: 1
-			}),
-			fill: new ol.style.Fill({
-				color: [222, 236, 255, 1]
-			})
-		});
-		feature.setStyle(style);
-		feature.setProperties(features[i]['properties']);
-		let lng = features[i]['properties']['lng'];
-		let lat = features[i]['properties']['lat'];
-		let labelFeature = new ol.Feature(new ol.geom.Point(ol.proj.transform([parseFloat(lng), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857')));
-		labelFeature.setStyle(new ol.style.Style({
-			text: new ol.style.Text({
-				textAlign: 'center',
-				textBaseline: 'middle',
-				offsetY: 12,
-				font: 'normal 12px 微软雅黑',
-				text: features[i]['properties']['name'],
-				fill: new ol.style.Fill({
-					color: '#999999'
-				})
-			})
-		}));
-
-		vectorLayer.getSource().addFeature(feature);
-		labelLayer.getSource().addFeature(labelFeature);
-	}
 	let roadLayer = new ol.layer.Tile({
 		title: "3857底图",
 		source: new ol.source.XYZ({
-			tileUrlFunction: function(tileCoord) {
-				let oo = "00000000";
-				let zz = tileCoord[0];
-				if(zz < 10) {
-					zz = '0' + zz;
-				}
-				let z = "L" + zz;
-				let xx = tileCoord[1].toString(16);
-				let x = "C" + oo.substring(0, 8 - xx.length) + xx;
-				let yy = (-tileCoord[2] - 1).toString(16); //注意此处，计算方式变了
-				let y = "R" + oo.substring(0, 8 - yy.length) + yy;
-				return 'http://223.86.3.47:28080/api/Handler/Utils.ashx?method=convertImg&x=' + z + '&y=' + y + '&z=' + x
-//				return "http://10.110.39.171:8088/RoadLayer/Layers/_alllayers/" + z + "/" + y + "/" + x + ".png"
-			},
-			projection: 'EPSG:3857'
+			url: baseUrl + 'Handler/Utils.ashx?method=baiduMap&x={x}&y={y}&z={z}'
 		})
 	});
 	map.addLayer(roadLayer);
-	roadLayer.setVisible(false);
 
-	map.on("moveend", function(e) {
-		var zoom = map.getView().getZoom(); //获取当前地图的缩放级别
-		if(zoom >= 8) {
-			vectorLayer.setVisible(false);
-			labelLayer.setVisible(false);
-			roadLayer.setVisible(true);
-			sceneLayer.setVisible(true);
-			locLayer.setVisible(true);
-			$('#legend').hide();
-			$('#legend1').show();
-		} else {
-			roadLayer.setVisible(false);
-			sceneLayer.setVisible(false);
-			locLayer.setVisible(true);
-			vectorLayer.setVisible(true);
-			labelLayer.setVisible(true);
-			$('#legend1').hide();
-			$('#legend').show();
-		}
-	});
+	//	map.on("moveend", function(e) {
+	//		var zoom = map.getView().getZoom(); //获取当前地图的缩放级别
+	//		if(zoom >= 8) {
+	//			vectorLayer.setVisible(false);
+	//			labelLayer.setVisible(false);
+	//			roadLayer.setVisible(true);
+	//			sceneLayer.setVisible(true);
+	//			locLayer.setVisible(true);
+	//			$('#legend').hide();
+	//			$('#legend1').show();
+	//		} else {
+	//			roadLayer.setVisible(false);
+	//			sceneLayer.setVisible(false);
+	//			locLayer.setVisible(true);
+	//			vectorLayer.setVisible(true);
+	//			labelLayer.setVisible(true);
+	//			$('#legend1').hide();
+	//			$('#legend').show();
+	//		}
+	//	});
 
 	map.on('dblclick', function(evt) {
 		let feature = map.forEachFeatureAtPixel(evt.pixel,
@@ -135,19 +99,7 @@ function initMap() {
 		}
 		return false;
 	})
-	sceneLayer = new ol.layer.Vector({
-		source: new ol.source.Vector({
-			features: []
-		})
-	});
-	map.addLayer(sceneLayer);
 
-	locLayer = new ol.layer.Vector({
-		source: new ol.source.Vector({
-			features: []
-		})
-	});
-	map.addLayer(locLayer);
 }
 
 function addSceneLayer(data) {
@@ -198,8 +150,8 @@ function addSceneLayer(data) {
 		}
 		let iconstyle = new ol.style.Style({
 			image: new ol.style.Icon(({
-				scale: 0.75,
-				anchor: [0.5, 1],
+				scale: 0.1,
+				anchor: [0.3, 1],
 				anchorXUnits: 'fraction',
 				anchorYUnits: 'fraction',
 				src: imgurl
