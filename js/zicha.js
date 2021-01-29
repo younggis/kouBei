@@ -285,6 +285,8 @@ function init() {
 	})
 	//    $('.zicha-imgBtn').on('click',function(){
 	// })
+	
+	initMap()
 
 }
 
