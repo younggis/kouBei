@@ -1,6 +1,7 @@
 var zichaSceneList = [];
 var zichaSceneSelcectList = [];
 var chartObj = {};
+var switchFlog = true;
 
 function changeBc(index) {
 	$($('.zicha-city')[index]).toggleClass('mapbc-' + index);
@@ -165,22 +166,34 @@ function initData(city) {
 		var totalData = result;
 		addList(totalData.top);
 		if (city == '全省') {
-			$(".city-detail").css('display', 'block');
-			$('.city-scene').css('display', 'none');
-			$('.zicha-addBtn').css('display', 'none');
-			$(".index-font").each((index, item) => {
-				let data = totalData.dataList.filter(i => {
-					return i['a_01'] == $(item).find('.zicha-city').text();
+			if (switchFlog) {
+				$(".city-detail").css('display', 'none');
+				$('.city-scene').css('display', 'block');
+				$('.zicha-addBtn').css('display', 'block');
+				zichaSceneList = totalData.dataList;
+				addScene(zichaSceneList);
+				zichaSceneSelcectList = zichaSceneList;
+				initSceneSelect(zichaSceneSelcectList);
+				initEchartData(totalData.dataList, 'a_05');
+			} else {
+				$(".city-detail").css('display', 'block');
+				$('.city-scene').css('display', 'none');
+				$('.zicha-addBtn').css('display', 'none');
+				$(".index-font").each((index, item) => {
+					let data = totalData.dataList.filter(i => {
+						return i['a_01'] == $(item).find('.zicha-city').text();
+					});
+					$(item).find('.color-blue').text(data[0]['a_02'] == null ? '-' : data[0]['a_02']);
+					$(item).find('.color-green').text(data[0]['a_03'] == null ? '-' : data[0]['a_03']);
+					$(item).find('.color-red').text(data[0]['a_04'] == null ? '-' : data[0]['a_04']);
+					if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
+						$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
+						$(item).find('.zicha-city').addClass('mapbc-' + index);
+					}
 				});
-				$(item).find('.color-blue').text(data[0]['a_02'] == null ? '-' : data[0]['a_02']);
-				$(item).find('.color-green').text(data[0]['a_03'] == null ? '-' : data[0]['a_03']);
-				$(item).find('.color-red').text(data[0]['a_04'] == null ? '-' : data[0]['a_04']);
-				if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
-					$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
-					$(item).find('.zicha-city').addClass('mapbc-' + index);
-				}
-			});
-			initEchartData(totalData.dataList, 'a_01');
+				initEchartData(totalData.dataList, 'a_01');
+			}
+
 		} else {
 			$(".city-detail").css('display', 'none');
 			$('.city-scene').css('display', 'block');
@@ -231,18 +244,18 @@ function init() {
 		})
 	});
 
-	// layerForm.on('select(city)', function(data) {
-	// 	if (data.value != '全省') {
-	// 		$(".city-detail").css('display', 'none');
-	// 		$('.city-scene').css('display', 'block');
-	// 		$('.zicha-addBtn').css('display', 'block');
-	// 		addScene(zichaSceneList);
-	// 	} else {
-	// 		$(".city-detail").css('display', 'block');
-	// 		$('.city-scene').css('display', 'none');
-	// 		$('.zicha-addBtn').css('display', 'none');
-	// 	}
-	// });
+	layerForm.on('switch(switchTest)', function(data) {
+		switchFlog = !switchFlog;
+		initData('全省');
+	})
+
+	layerForm.on('select(city)', function(data) {
+		if (data.value != '全省') {
+			$(".zicha-swicth .layui-form-switch").css('display','none');
+		} else {
+			$(".zicha-swicth .layui-form-switch").css('display','block');
+		}
+	});
 	$("#seaBtn").on('click', function() {
 		let city = $("#city").val();
 		initData(city);
@@ -270,7 +283,7 @@ function init() {
 		zichaSceneSelcectList = data;
 		addScene(data);
 	})
- //    $('.zicha-imgBtn').on('click',function(){
+	//    $('.zicha-imgBtn').on('click',function(){
 	// })
 
 }
@@ -349,6 +362,6 @@ function initEchartData(data, mark) {
 		seriesData1.push(item['a_03']);
 		seriesData2.push(item['a_04']);
 	});
-	showEchart('zccj-chart', xData, seriesData1, '#31D3D7', chartObj);
+	// showEchart('zccj-chart', xData, seriesData1, '#31D3D7', chartObj);
 	showEchart('cccp-chart', xData, seriesData2, '#F68B71', chartObj);
 }

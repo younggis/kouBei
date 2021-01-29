@@ -43,6 +43,14 @@
 				height: 70%;
 			}
 
+			.h50 {
+				height: 50%;
+			}
+
+			.h25 {
+				height: 25%;
+			}
+
 			.h100 {
 				height: 100%;
 			}
@@ -55,6 +63,7 @@
 				box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
 				border-radius: 4px;
 				background-color: white;
+				position: relative;
 			}
 
 			.fc {
@@ -605,17 +614,27 @@
 			.zicha-swicth .layui-form-switch {
 				padding: 5px 20px;
 				margin-top: 2px;
+				border-color: #F26049;
+				background-color: #F26049;
 			}
 
 			.zicha-swicth .layui-form-switch i {
 				top: 5px;
 				width: 20px;
 				height: 20px;
+				background-color: #fff !important;
 			}
 
 			.zicha-swicth .layui-form-switch em {
 				font-size: 16px;
+				color: #fff !important;
 			}
+
+			.zicha-swicth .layui-form-onswitch {
+				border-color: #4192F7;
+				background-color: #4192F7;
+			}
+
 
 			.zicha-box .layui-col-md1 {
 				width: calc(8.33333333% - 2px);
@@ -637,6 +656,7 @@
 				align-items: center;
 				display: flex;
 				padding-left: 10px;
+				position: relative;
 			}
 
 			#map {
@@ -644,6 +664,104 @@
 				width: 100%;
 				background-color: #fff;
 			}
+
+			.map-search {
+				height: 50%;
+				width: 150px;
+				background-image: url(img/search.png);
+				background-size: 100% 100%;
+				position: absolute;
+				right: 20px;
+			}
+
+			#map-serach {
+				margin-left: -10px;
+				width: 120px;
+				border: 1px solid #EEEFF3;
+				height: 92%;
+				background: #EEEFF3;
+				border-radius: 20px 0 0 20px;
+				padding-left: 10px;
+				float: left;
+				z-index: 100;
+				color: #AAAAAA;
+				font-size: 12px;
+				font-weight: lighter;
+			}
+
+			.map-btn {
+				height: 100%;
+				width: 28px;
+				float: left;
+				z-index: 100;
+				cursor: pointer;
+			}
+
+			.map-serach-dl {
+				position: absolute;
+				top: 90%;
+				right: 24px;
+				width: 150px;
+				border-radius: 4px;
+				font-size: 14px;
+				font-weight: bold;
+				box-shadow: 2px 2px 8px #aaa;
+				background: white;
+				/* display: none; */
+			}
+
+			.map-serach-dt {
+				text-align: center;
+				background: #EEEFF3;
+				height: 30px;
+				line-height: 30px;
+			}
+
+			.map-serach-dl .even {
+				background: white;
+			}
+
+			.bg-index {
+				background-color: #fff;
+				color: #4192F7;
+				border-radius: 4px;
+			}
+
+			.active-index {
+				background-color: #4192F7 !important;
+				color: #fff !important
+			}
+
+			.index-num {
+				font-size: 18px;
+				font-weight: bold;
+				display: inline-block;
+				text-align: center;
+				margin-bottom: 10px;
+				width: 100%;
+			}
+
+			.index-unit {
+				font-size: 16px;
+				font-weight: lighter;
+
+			}
+
+			.index-label {
+				font-size: 12px;
+				font-weight: lighter;
+				text-align: center;
+				width: 100%;
+			}
+
+			.index-box {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100%;
+			}
+
 			}
 		</style>
 	</head>
@@ -959,19 +1077,79 @@
 				<div class="layui-col-md6 h100 zicha-map">
 					<div class="map-title h10 ">
 						GIS呈现
+						<div class="map-search">
+							<input id="map-serach" placeholder="输入关键字" />
+							<i class="map-btn"></i>
+						</div>
+						<dl class="map-serach-dl">
+							<dt class="map-serach-dt even">hhh</dt>
+							<dt class="map-serach-dt">hhh</dt>
+							<dt class="map-serach-dt even">hhh</dt>
+							<dt class="map-serach-dt">hhh</dt>
+						</dl>
 					</div>
 					<div id="map">
 
 					</div>
 				</div>
-				<div class="layui-col-md4 h100">
-					<div class="borbg hchart  w100" style="margin-bottom: 10px;">
-						<div class="chart-title">质差场景数</div>
-						<div class="chart-box" id="zccj-chart"></div>
+				<div class="layui-col-md4 layui-col-space10 h100">
+					<div class="layui-row  layui-col-space10 h50">
+						<div class="layui-col-md4 h50">
+							<div class="bg-index h100 active-index">
+								<div class="index-box ">
+									<div class="index-num">123455<span class="index-unit">GB</span></div>
+									<div class="index-label">流量</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 h50">
+							<div class="bg-index h100">
+								<div class="index-box">
+									<div class="index-num">34567<span class="index-unit">万ERL</span></div>
+									<div class="index-label">VOLTE话务量</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 h50  ">
+							<div class="bg-index h100">
+								<div class="index-box">
+									<div class="index-num">95.88<span class="index-unit">%</span></div>
+									<div class="index-label">高利用率小区数占比</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 h50  ">
+							<div class="bg-index h100">
+								<div class="index-box">
+									<div class="index-num">3.88<span class="index-unit">%</span></div>
+									<div class="index-label">volte掉话率</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 h50  ">
+							<div class="bg-index h100">
+								<div class="index-box">
+									<div class="index-num">5.88<span class="index-unit">%</span></div>
+									<div class="index-label">低感知小区数占比</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md4 h50  ">
+							<div class="bg-index h100">
+								<div class="index-box">
+									<div class="index-num">234567<span class="index-unit">次</span></div>
+									<div class="index-label">投诉量</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="borbg hchart  w100">
-						<div class="chart-title">超长超频质差场景数</div>
-						<div class="chart-box" id="cccp-chart"></div>
+					<div class="layui-row  h50">
+						<div class="layui-col-md12 h100">
+							<div class="bg-index h100">
+								<div class="chart-title">超长超频质差场景数</div>
+								<div class="chart-box" id="cccp-chart"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 
