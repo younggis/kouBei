@@ -2,6 +2,7 @@ var zichaSceneList = [];
 var zichaSceneSelcectList = [];
 var chartObj = {};
 var switchFlog = true;
+var recentSummaryIndex = 0;
 
 function changeBc(index) {
 	$($('.zicha-city')[index]).toggleClass('mapbc-' + index);
@@ -14,9 +15,10 @@ function changeBc(index) {
 	});
 	let city = $($('.zicha-city')[index]).text();
 	let time = dealDate($('#time').val());
-	$$('scene/badQualitySummary', {
+	$$('scene/badQualitySummary_new', {
 		time: time,
-		city: city
+		city: city,
+		flag: switchFlog ? 2 : 1,
 	}, function(result) {
 		if (result.dataList.length) {
 			initEchartData(result.dataList, 'a_05');
@@ -37,10 +39,8 @@ function addList(data) {
 		html +=
 			`
 			<li class="zicha-cell-row ${classText}">
-				<div class="zicha-cell-1 cell-4">${data[i]['a_03']}</div>
-				<div class="zicha-cell-1 cell-1">${data[i]['a_01']}</div>
-				<div class="zicha-cell-2 cell-2-5">${data[i]['a_02']}</div>
-				<div class="zicha-cell-2 cell-2-5">${data[i]['a_04']}</div>
+				<div class="zicha-cell-1 cell-6">${data[i]['a_03']}</div>
+				<div class="zicha-cell-1 cell-4 top-center">${data[i]['a_05']}</div>
 			</li>
 		`;
 	}
@@ -53,11 +53,11 @@ function addScene(data) {
 		$(item).html = '';
 		let html = '';
 		if (index < data.length) {
-			let a = (data[index]['a_02'] == null ? '-' : data[index]['a_02']);
-			let b = (data[index]['a_03'] == null ? '-' : data[index]['a_03']);
-			let c = (data[index]['a_04'] == null ? '-' : data[index]['a_04']);
+			let a = (data[index]['num'] == null ? '--' : data[index]['num']);
+			let b = (data[index]['is_yj'] == null ? '--' : data[index]['is_yj']);
+			let c = (data[index]['a_04'] == null ? '--' : data[index]['a_04']);
 			let bgClass = sceneBgList.filter(item => {
-				return item.name == data[index]['a_05']
+				return item.name == data[index]['import_scene']
 			})[0].activeIcon;
 			html =
 				`
@@ -82,7 +82,7 @@ function addScene(data) {
 }
 
 
-function showEchart(id, xData, data, color, chartObj) {
+function showEchart(id, xData, ydata, unit, chartObj) {
 	let option = {
 
 		tooltip: {
@@ -115,8 +115,13 @@ function showEchart(id, xData, data, color, chartObj) {
 				rotate: 30,
 				interval: 0,
 				fontSize: 12,
+				rotate:90
 			},
-		}, ],
+			formatter: function(value, index) {
+				return value;
+			},
+			
+		}],
 		yAxis: [{
 			type: "value",
 			minInterval: 1,
@@ -126,24 +131,44 @@ function showEchart(id, xData, data, color, chartObj) {
 			axisTick: {
 				show: false,
 			},
-			axisLabel: {
-				fontSize: 12,
-				color: "#999999",
-			},
 			splitLine: {
 				lineStyle: {
 					color: "#E9ECF0",
 				},
 			},
+			axisLabel: {
+				fontSize: 12,
+				color: "#999999",
+				formatter: unit == '%' ? "{value}%" : "{value%",
+			},
+			splitLine: {
+				lineStyle: {
+					color: "rgba(6, 7, 14,1)",
+				},
+			},
+			name: unit == '%' ? "" : "单位/" + unit,
 		}],
 		series: {
-			type: 'bar',
+			type: 'line',
 			data: data,
+			type: "line",
+			symbol: "none",
+			sampling: "average",
+			smooth: true,
 			itemStyle: {
-				color: color,
-				barBorderRadius: [2, 2, 0, 0]
+				color: "rgba(65, 146, 247, 1)",
 			},
-			barWidth: 6
+			areaStyle: {
+				color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+						offset: 0,
+						color: "rgba(65, 146, 247, 0.6)",
+					},
+					{
+						offset: 1,
+						color: "rgba(65, 146, 247, 0)",
+					},
+				]),
+			},
 
 		},
 	};
@@ -159,55 +184,131 @@ function showEchart(id, xData, data, color, chartObj) {
 
 
 function initData(city) {
-	$$('scene/badQualitySummary', {
+	let flog = (city == '全省' && switchFlog) ? 1 : 2;
+	$$('scene/badQualitySummary_new', {
 		time: dealDate($('#time').val()),
-		city: city
+		city: city,
+		flag: flog,
 	}, function(result) {
-		var totalData = result;
-		addList(totalData.top);
-		if (city == '全省') {
-			if (switchFlog) {
-				$(".city-detail").css('display', 'none');
-				$('.city-scene').css('display', 'block');
-				$('.zicha-addBtn').css('display', 'block');
-				zichaSceneList = totalData.dataList;
-				addScene(zichaSceneList);
-				zichaSceneSelcectList = zichaSceneList;
-				initSceneSelect(zichaSceneSelcectList);
-				initEchartData(totalData.dataList, 'a_05');
-			} else {
-				$(".city-detail").css('display', 'block');
-				$('.city-scene').css('display', 'none');
-				$('.zicha-addBtn').css('display', 'none');
-				$(".index-font").each((index, item) => {
-					let data = totalData.dataList.filter(i => {
-						return i['a_01'] == $(item).find('.zicha-city').text();
-					});
-					$(item).find('.color-blue').text(data[0]['a_02'] == null ? '-' : data[0]['a_02']);
-					$(item).find('.color-green').text(data[0]['a_03'] == null ? '-' : data[0]['a_03']);
-					$(item).find('.color-red').text(data[0]['a_04'] == null ? '-' : data[0]['a_04']);
-					if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
-						$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
-						$(item).find('.zicha-city').addClass('mapbc-' + index);
-					}
+		if (flog == 1) {
+			$(".city-detail").css('display', 'block');
+			$('.city-scene').css('display', 'none');
+			$('.zicha-addBtn').css('display', 'none');
+			$(".index-font").each((index, item) => {
+				let data = result.dataList.filter(i => {
+					return i['city_name'] == $(item).find('.zicha-city').text();
 				});
-				initEchartData(totalData.dataList, 'a_01');
-			}
+				$(item).find('.color-blue').text((!data.length || data[0]['num'] == null) ? '--' : data[0]['num']);
+				$(item).find('.color-green').text((!data.length || data[0]['is_yj'] == null) ? '--' : data[0]['is_yj']);
+				$(item).find('.color-red').text((!data.length || data[0]['a_04'] == null) ? '--' : data[0]['a_04']);
+				if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
+					$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
+					$(item).find('.zicha-city').addClass('mapbc-' + index);
+				}
+			});
 
+			// initEchartData(totalData.dataList, 'a_05');
 		} else {
+
 			$(".city-detail").css('display', 'none');
 			$('.city-scene').css('display', 'block');
 			$('.zicha-addBtn').css('display', 'block');
-			zichaSceneList = totalData.dataList;
+			zichaSceneList = result.dataList;
 			addScene(zichaSceneList);
 			zichaSceneSelcectList = zichaSceneList;
 			initSceneSelect(zichaSceneSelcectList);
-			initEchartData(totalData.dataList, 'a_05');
-		};
+			// initEchartData(totalData.dataList, 'a_01');
+		}
 	})
 }
 
+function dealData(data) {
+	return data == null ? '--' : data;
+}
 
+function dealDate(time) {
+	let list = time.split(' ');
+	return list[1].split(':')[0] + ':' + list[1].split(':')[1];
+}
+
+function dealSummaryIndex(indexList) {
+	let unitList = ['GB', 'ERL', '%', '%', '%', '次'];
+	let indexlabel = ['流量', 'VOLTE话务量', '高利用率小区数占比', 'volte掉话率', '低感知小区数占比', '投诉量']
+	$('#zhicha-index').empty();
+	let html = '';
+	for (var i = 0; i < 6; i++) {
+		html =
+			`
+			<div class="layui-col-md4 h50 zhicha-cursor">
+		    	<div class="bg-index h100  ${recentSummaryIndex == i?'active-index':''}">
+		   		   <div class="index-box">
+		   			    <div class="index-num">${indexList[i]}<span class="index-unit">${indexList[i]=='--'?'':unitList[i]}</span></div>
+		   			    <div class="index-label">${indexlabel[i]}</div>
+		   		   </div>
+		   	    </div>
+			</div>
+		   	`;
+		$('#zhicha-index').append(html)
+	};
+	$("#btn").bind("click");
+	$(".bg-index").click(function() {
+		$('.bg-index').each((index, item) => {
+			$(item).removeClass('active-index')
+		});
+		$(this).addClass('active-index');
+		let label = $(this).find('.index-label').text();
+		recentSummaryIndex = indexlabel.indexOf(label);
+	});
+}
+
+function initDataPart(city, scene, subScene) {
+	$$('scene/badQualityQuota_new', {
+		time: dealDate($('#time').val()),
+		city: city,
+		scene: scene,
+		subScene: subScene
+	}, function(result) {
+		console.log(result)
+		if (!result) {
+			$('#zicha-list').css('display', 'none');
+			$('.top-nodata').css('display', 'block');
+			dealSummaryIndex(['--', '--', '--', '--', '--', '--']);
+			return
+		}
+		if (result.top && result.top.length) {
+			$('#zicha-list').css('display', 'block');
+			$('.top-nodata').css('display', 'none');
+			addList(result.top);
+		} else {
+			$('#zicha-list').css('display', 'none');
+			$('.top-nodata').css('display', 'block');
+		}
+		if (result.summary) {
+			let indexList = [dealData(result.summary['liuliang_GB']), dealData(result.summary['ERAB_NBRMEANESTAB_1']),
+				dealData(
+					result.summary[
+						'maxuse_rate']), dealData(result.summary['EU0205']), dealData(result.summary['is_dsl_rate']), dealData(
+					result.summary['tousu_total'])
+			];
+			dealSummaryIndex(indexList)
+		} else {
+			dealSummaryIndex(['--', '--', '--', '--', '--', '--'])
+		}
+
+		if (result.timeList && result.timeList.length) {
+			let xdata = [];
+			let ydata = [];
+			let propertyList = ['liuliang_GB', 'ERAB_NBRMEANESTAB_1', 'maxuse_rate', 'EU0205', 'is_dsl_rate', 'tousu_total'];
+			let unitList = ['GB', 'ERL', '%', '%', '%', '次'];
+			result.timeList.forEach((item, index) => {
+				xdata.push(dealDate(item.time));
+				ydata.push(item[propertyList[recentSummaryIndex]]);
+			})
+			showEchart('cccp-chart', xdata, ydata, unitList[recentSummaryIndex], chartObj)
+		}
+
+	})
+}
 
 function init() {
 	var userid = getvl('user');
@@ -241,6 +342,7 @@ function init() {
 			_addOption('time', timelist);
 			let city = $("#city").val();
 			initData(city);
+			initDataPart(city, '全部', '全部');
 		})
 	});
 
@@ -251,14 +353,15 @@ function init() {
 
 	layerForm.on('select(city)', function(data) {
 		if (data.value != '全省') {
-			$(".zicha-swicth .layui-form-switch").css('display','none');
+			$(".zicha-swicth .layui-form-switch").css('display', 'none');
 		} else {
-			$(".zicha-swicth .layui-form-switch").css('display','block');
+			$(".zicha-swicth .layui-form-switch").css('display', 'block');
 		}
 	});
 	$("#seaBtn").on('click', function() {
 		let city = $("#city").val();
 		initData(city);
+		initDataPart(city, '全部', '全部');
 	})
 
 	$('.zicha-addBtn').on('click', function() {
@@ -285,7 +388,7 @@ function init() {
 	})
 	//    $('.zicha-imgBtn').on('click',function(){
 	// })
-	
+
 	initMap()
 
 }
@@ -294,7 +397,7 @@ function initSceneSelect(data) {
 	$('#zhichaSceneSelect').html('');
 	for (let i = 0; i < data.length; i++) {
 		for (let j = 0; j < sceneList.length; j++) {
-			if (sceneList[j]['name'] == data[i]['a_05']) {
+			if (sceneList[j]['name'] == data[i]['import_scene']) {
 				let btnhtml = '';
 				if (i > 11) {
 					btnhtml =

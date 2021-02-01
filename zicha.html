@@ -406,6 +406,16 @@
 				width: 100%
 			}
 
+			.top-nodata {
+				height: calc(100% - 32px);
+				background-image: url(img/nodata.png);
+				background-repeat: no-repeat;
+				background-position-y: center;
+				background-position-x: center;
+				background-size: 80%;
+				display: none;
+			}
+
 			.hchart {
 				height: calc(50% - 5px);
 				border-radius: 4px;
@@ -762,6 +772,14 @@
 				width: 100%;
 			}
 
+			.top-center {
+				text-align: center;
+			}
+			
+			.zhicha-cursor{
+				cursor: pointer;
+			}
+
 			}
 		</style>
 	</head>
@@ -794,7 +812,7 @@
 				</div>
 				<div class="layui-inline zicha-swicth">
 					<!-- <label class="layui-form-label"></label> -->
-					<input type="checkbox" checked="" name="switch" lay-skin="switch" lay-filter="switchTest" lay-text="场景|地市">
+					<input type="checkbox" checked="" name="switch" lay-skin="switch" lay-filter="switchTest" lay-text="地市|场景">
 					<!-- 	<div class=""layui-input-inline">
 						 <input type="checkbox" checked="" name="switch" lay-skin="switch" lay-filter="switchTest" lay-text="场景|地市">
 					</div> -->
@@ -1063,7 +1081,7 @@
 							<ul class="list">
 								<li class="zicha-row even">
 									<div class="zicha-cell-1 cell-6">场景名称</div>
-									<div class="zicha-cell-1 cell-4">质差小区数</div>
+									<div class="zicha-cell-1 cell-4 top-center">质差小区数</div>
 									<!-- <div class="zicha-cell-1 cell-1">地市</div> -->
 									<!-- <div class="zicha-cell-2 cell-2-5">场景属性</div>
 									<div class="zicha-cell-2 cell-2-5">出现频次</div> -->
@@ -1071,6 +1089,7 @@
 							</ul>
 							<ul id="zicha-list">
 							</ul>
+							<div class="top-nodata"></div>
 						</div>
 					</div>
 				</div>
@@ -1093,60 +1112,12 @@
 					</div>
 				</div>
 				<div class="layui-col-md4 layui-col-space10 h100">
-					<div class="layui-row  layui-col-space10 h50">
-						<div class="layui-col-md4 h50">
-							<div class="bg-index h100 active-index">
-								<div class="index-box ">
-									<div class="index-num">123455<span class="index-unit">GB</span></div>
-									<div class="index-label">流量</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md4 h50">
-							<div class="bg-index h100">
-								<div class="index-box">
-									<div class="index-num">34567<span class="index-unit">万ERL</span></div>
-									<div class="index-label">VOLTE话务量</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md4 h50  ">
-							<div class="bg-index h100">
-								<div class="index-box">
-									<div class="index-num">95.88<span class="index-unit">%</span></div>
-									<div class="index-label">高利用率小区数占比</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md4 h50  ">
-							<div class="bg-index h100">
-								<div class="index-box">
-									<div class="index-num">3.88<span class="index-unit">%</span></div>
-									<div class="index-label">volte掉话率</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md4 h50  ">
-							<div class="bg-index h100">
-								<div class="index-box">
-									<div class="index-num">5.88<span class="index-unit">%</span></div>
-									<div class="index-label">低感知小区数占比</div>
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md4 h50  ">
-							<div class="bg-index h100">
-								<div class="index-box">
-									<div class="index-num">234567<span class="index-unit">次</span></div>
-									<div class="index-label">投诉量</div>
-								</div>
-							</div>
-						</div>
+					<div class="layui-row  layui-col-space10 h50" id="zhicha-index">
 					</div>
 					<div class="layui-row  h50">
 						<div class="layui-col-md12 h100">
 							<div class="bg-index h100">
-								<div class="chart-title">超长超频质差场景数</div>
+								<div class="chart-title">走势</div>
 								<div class="chart-box" id="cccp-chart"></div>
 							</div>
 						</div>
