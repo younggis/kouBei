@@ -77,25 +77,13 @@ function initMap() {
 	//		}
 	//	});
 
-	map.on('dblclick', function(evt) {
+	map.on('click', function(evt) {
 		let feature = map.forEachFeatureAtPixel(evt.pixel,
 			function(feature) {
 				return feature;
 			});
 		if(feature) {
-			map.getView().animate({
-				center: evt.coordinate
-			}, {
-				zoom: 8
-			})
-			let attributes = feature.getProperties();
-			$$('Scene/citysubSceneList', {
-				city: attributes['name'],
-				scene: $('.imgSit.active').attr('scene_name')
-			}, function(result) {
-				allData = result;
-				addSceneLayer(result);
-			})
+			
 		}
 		return false;
 	})

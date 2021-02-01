@@ -6,7 +6,7 @@ function changeBc(index) {
 	$($('.zicha-city')[index]).toggleClass('mapbc-' + index);
 	$($('.zicha-city')[index]).toggleClass('mapbc-active-' + index);
 	$('.zicha-city').each((i, item) => {
-		if (i != index) {
+		if(i != index) {
 			$(item).addClass('mapbc-' + i);
 			$(item).removeClass('mapbc-active-' + i);
 		}
@@ -17,7 +17,7 @@ function changeBc(index) {
 		time: time,
 		city: city
 	}, function(result) {
-		if (result.dataList.length) {
+		if(result.dataList.length) {
 			initEchartData(result.dataList, 'a_05');
 		}
 	})
@@ -27,9 +27,9 @@ function changeBc(index) {
 function addList(data) {
 	$('#zicha-list').html('');
 	let html = '';
-	for (let i = 0; i < data.length; i++) {
+	for(let i = 0; i < data.length; i++) {
 		let classText = '';
-		if (i % 2 == 1) {
+		if(i % 2 == 1) {
 			classText = 'even';
 		}
 		data[i] = handleNull(data[i]);
@@ -51,7 +51,7 @@ function addScene(data) {
 	$('.scene-font').each((index, item) => {
 		$(item).html = '';
 		let html = '';
-		if (index < data.length) {
+		if(index < data.length) {
 			let a = (data[index]['a_02'] == null ? '-' : data[index]['a_02']);
 			let b = (data[index]['a_03'] == null ? '-' : data[index]['a_03']);
 			let c = (data[index]['a_04'] == null ? '-' : data[index]['a_04']);
@@ -79,7 +79,6 @@ function addScene(data) {
 		$(item).html(html);
 	})
 }
-
 
 function showEchart(id, xData, data, color, chartObj) {
 	let option = {
@@ -146,7 +145,7 @@ function showEchart(id, xData, data, color, chartObj) {
 
 		},
 	};
-	if (!chartObj[id]) {
+	if(!chartObj[id]) {
 		chartObj[id] = echarts.init(document.getElementById(id));
 		chartObj[id].setOption(option);
 	} else {
@@ -155,8 +154,6 @@ function showEchart(id, xData, data, color, chartObj) {
 	chartObj[id].resize();
 }
 
-
-
 function initData(city) {
 	$$('scene/badQualitySummary', {
 		time: dealDate($('#time').val()),
@@ -164,7 +161,7 @@ function initData(city) {
 	}, function(result) {
 		var totalData = result;
 		addList(totalData.top);
-		if (city == '全省') {
+		if(city == '全省') {
 			$(".city-detail").css('display', 'block');
 			$('.city-scene').css('display', 'none');
 			$('.zicha-addBtn').css('display', 'none');
@@ -175,7 +172,7 @@ function initData(city) {
 				$(item).find('.color-blue').text(data[0]['a_02'] == null ? '-' : data[0]['a_02']);
 				$(item).find('.color-green').text(data[0]['a_03'] == null ? '-' : data[0]['a_03']);
 				$(item).find('.color-red').text(data[0]['a_04'] == null ? '-' : data[0]['a_04']);
-				if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
+				if($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
 					$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
 					$(item).find('.zicha-city').addClass('mapbc-' + index);
 				}
@@ -191,14 +188,19 @@ function initData(city) {
 			initSceneSelect(zichaSceneSelcectList);
 			initEchartData(totalData.dataList, 'a_05');
 		};
+
+		$$('scene/badQualityQuotaMap_new', {
+			time: dealDate($('#time').val()),
+			city: city
+		}, function(result) {
+			
+		})
 	})
 }
 
-
-
 function init() {
 	var userid = getvl('user');
-	if (!userid) {
+	if(!userid) {
 		alert('请从四川移动网优大数据管理平台进入！');
 		return;
 	}
@@ -206,9 +208,9 @@ function init() {
 		user: userid
 	}, function(data) {
 		let citylist = [];
-		for (var i = 0; i < data.length; i++) {
+		for(var i = 0; i < data.length; i++) {
 			var value = data[i]['EnumName'];
-			if (data[i]['EnumName'] == '全部') continue;
+			if(data[i]['EnumName'] == '全部') continue;
 			citylist.push({
 				label: data[i]['EnumName'],
 				value: value
@@ -219,7 +221,7 @@ function init() {
 			timeList = result;
 			let timelist = [];
 			let data = result;
-			for (var i = 0; i < data.length; i++) {
+			for(var i = 0; i < data.length; i++) {
 				timelist.push({
 					label: data[i],
 					value: data[i]
@@ -260,7 +262,7 @@ function init() {
 		let index = 0;
 		let items = $('#zhichaSceneSelect .layui-col-md3.active');
 		let scenes = [];
-		for (var i = 0; i < items.length; i++) {
+		for(var i = 0; i < items.length; i++) {
 			scenes.push($(items[i]).attr('name'));
 		}
 		let data = [];
@@ -270,20 +272,20 @@ function init() {
 		zichaSceneSelcectList = data;
 		addScene(data);
 	})
- //    $('.zicha-imgBtn').on('click',function(){
+	//    $('.zicha-imgBtn').on('click',function(){
 	// })
-	
+
 	initMap()
 
 }
 
 function initSceneSelect(data) {
 	$('#zhichaSceneSelect').html('');
-	for (let i = 0; i < data.length; i++) {
-		for (let j = 0; j < sceneList.length; j++) {
-			if (sceneList[j]['name'] == data[i]['a_05']) {
+	for(let i = 0; i < data.length; i++) {
+		for(let j = 0; j < sceneList.length; j++) {
+			if(sceneList[j]['name'] == data[i]['a_05']) {
 				let btnhtml = '';
-				if (i > 11) {
+				if(i > 11) {
 					btnhtml =
 						`
 						<div class="layui-col-md3" name="${sceneList[j]['name']}">
@@ -305,14 +307,14 @@ function initSceneSelect(data) {
 	$('#zhichaSceneSelect .layui-col-md3').on('click', function() {
 		let items = $('#zhichaSceneSelect .layui-col-md3');
 		let num = $('#zhichaSceneSelect .active').length;
-		if ($(this).hasClass('active')) {
+		if($(this).hasClass('active')) {
 			let curr_url = $(this).find('img').attr('src');
 			curr_url = curr_url.replace('.png', '_unactive.png');
 			$(this).find('img').attr('src', curr_url)
 			$(this).removeClass('active');
 
 		} else {
-			if (num < 12) {
+			if(num < 12) {
 				let curr_url = $(this).find('img').attr('src');
 				curr_url = curr_url.replace('_unactive.png', '.png');
 				$(this).find('img').attr('src', curr_url)
