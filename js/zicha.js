@@ -30,9 +30,11 @@ function changeBc(index) {
 	if (index != recentCityIndex) {
 		recentCityIndex = index;
 		initDataPart(city, '全部', '全部');
+		requestScene(city,'全部','全部');
 	} else {
 		recentCityIndex = -1;
 		initDataPart('全省', '全部', '全部');
+		requestScene('全省','全部','全部');
 	}
 }
 
@@ -56,28 +58,22 @@ function changeChildScene() {
 				let subScene = result[i].subScene.split(key);
 				let sceneLabel = subScene.join('<span style="color:#4192F7;">' + key + '</span>');
 				let finalLabel = label + sceneLabel;
-				html +=`<dt class="map-serach-dt ${classText}" index="${i}">${finalLabel}</dt>`;
+				html += `<dt class="map-serach-dt ${classText}" index="${i}">${finalLabel}</dt>`;
 			};
-		}else{
+		} else {
 			html = `<dt class="map-serach-nodata-dt even">无数据...</dt>`
 		}
 		$('.map-serach-dl').html(html);
-		$('.map-serach-dt').on('click',function(){
+		$('.map-serach-dt').on('click', function() {
 			let index = $(this).attr('index');
-			let option = {
-				time:dealDate($('#time').val()),
-				city:totolKeyData[index].city,
-				scene:totolKeyData[index].scene,
-				subScene:totolKeyData[index].subScene
-			};
 			$('#map-serach').val(totolKeyData[index].subScene);
 			$('.map-serach-dl').css('display', 'none');
-			requestScene()
+			requestScene(totolKeyData[index].city,totolKeyData[index].scene,totolKeyData[index].subScene);
 		})
-		
+
 	})
 }
- 
+
 function addList(data) {
 	$('#zicha-list').html('');
 	let html = '';
@@ -145,6 +141,7 @@ function addScene(data) {
 				false);
 			$(this).toggleClass('scene-' + swicthClass(name) + '_active', true);
 			initDataPart(city, name, '全部');
+			requestScene(city,name,'全部');
 		} else {
 			beforeClickSceneIndex = -1;
 			beforeClickName = '';
@@ -152,6 +149,7 @@ function addScene(data) {
 			recentSceneIndex = -1;
 			$(this).toggleClass('scene-' + swicthClass(name) + '_active', false);
 			initDataPart(city, '全部', '全部');
+			requestScene(city,'全部','全部');
 		}
 	})
 }
@@ -503,6 +501,7 @@ function init() {
 			let city = $("#city").val();
 			initData(city);
 			initDataPart(city, '全部', '全部');
+			requestScene(city,'全部','全部');
 		})
 	});
 
@@ -522,6 +521,7 @@ function init() {
 		let city = $("#city").val();
 		initData(city);
 		initDataPart(city, '全部', '全部');
+		requestScene(city,'全部','全部');
 	})
 
 	$('.zicha-addBtn').on('click', function() {
@@ -554,13 +554,12 @@ function init() {
 }
 
 
-function requestScene(options) {
-	options=options||{};
+function requestScene(city, scene, subScene) {
 	$$('scene/badQualityQuotaMap_new', {
-		time: options.time || dealDate($('#time').val()),
-		city: options.city || '全省',
-		scene: '全部',
-		subScene: '全部'
+		time: dealDate($('#time').val()),
+		city: city,
+		scene: scene,
+		subScene: subScene
 	}, function(result) {
 		addSceneLayer(result['scene']);
 		addSectorLayer(result['cell']);
