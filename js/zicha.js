@@ -236,8 +236,14 @@ function swicthClass(name) {
 			className = "dishang";
 			break;
 		case '公园':
-		    className = "gongyuan";
+			className = "gongyuan";
 			break;
+		case '美食商业区':
+			className = "foodshangyequ";
+			break;
+		case '绕城高速出口':
+			className = "gaosuchukou";
+			break
 	}
 	return className
 }
@@ -359,7 +365,7 @@ function initData(city) {
 		if (flog == 1) {
 			$(".city-detail").css('display', 'block');
 			$('.city-scene').css('display', 'none');
-			$('.zicha-addBtn').css('display', 'none');
+			// $('.zicha-addBtn').css('display', 'none');
 			$(".index-font").each((index, item) => {
 				let data = result.dataList.filter(i => {
 					return i['city_name'] == $(item).find('.zicha-city').text();
@@ -375,11 +381,11 @@ function initData(city) {
 		} else {
 			$(".city-detail").css('display', 'none');
 			$('.city-scene').css('display', 'block');
-			$('.zicha-addBtn').css('display', 'block');
+			// $('.zicha-addBtn').css('display', 'block');
 			zichaSceneList = result.dataList;
 			addScene(zichaSceneList);
-			zichaSceneSelcectList = zichaSceneList;
-			initSceneSelect(zichaSceneSelcectList);
+			// zichaSceneSelcectList = zichaSceneList;
+			// initSceneSelect(zichaSceneSelcectList);
 		}
 		$('.zhicha-tips').html(result.tips)
 	})

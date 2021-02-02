@@ -1474,6 +1474,18 @@ const sceneBgList = [{
 		url: 'img/images/gongyuan.png',
 		activeIcon: 'scene-gongyuan',
 		icon: ''
+	},
+	{
+		name: '美食商业区',
+		url: 'img/images/foodshangyequ.png',
+		activeIcon: 'scene-foodshangyequ',
+		icon: ''
+	},
+	{
+		name: '绕城高速出口',
+		url: 'img/images/gaosuchukou.png',
+		activeIcon: 'scene-gaosuchukou',
+		icon: ''
 	}
 ]
 
