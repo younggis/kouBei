@@ -9,12 +9,25 @@ var recentSceneIndex = -1;
 var beforeClickSceneIndex = -1;
 var beforeClickName = '';
 var nerName = "";
+var rencentSceneName = "全部";
 
 //地市游标
 var recentCityIndex = -1;
 var beforeClickCityIndex = -1;
+var recentCityName = "全省";
 
 var totolKeyData = [];
+
+window.onresize = function() {
+	chartObj['cccp-chart'].resize();
+}
+
+$("body").click(function(e) {
+	e.stopPropagation();
+	if (!$(e.target.parentElement).hasClass('map-search')) {
+		$(".map-serach-dl").hide();
+	}
+})
 
 
 function changeBc(index) {
@@ -26,15 +39,16 @@ function changeBc(index) {
 			$(item).removeClass('mapbc-active-' + i);
 		}
 	});
-	let city = $($('.zicha-city')[index]).text();
 	if (index != recentCityIndex) {
+		recentCityName = $($('.zicha-city')[index]).text();
 		recentCityIndex = index;
-		initDataPart(city, '全部', '全部');
-		requestScene(city,'全部','全部');
+		initDataPart(recentCityName, '全部', '全部');
+		requestScene(recentCityName, '全部', '全部');
 	} else {
+		recentCityName = '全省';
 		recentCityIndex = -1;
 		initDataPart('全省', '全部', '全部');
-		requestScene('全省','全部','全部');
+		requestScene('全省', '全部', '全部');
 	}
 }
 
@@ -44,6 +58,8 @@ function changeChildScene() {
 	$$('scene/search', {
 		time: dealDate($('#time').val()),
 		key: key,
+		city: recentCityName,
+		scene: rencentSceneName,
 	}, function(result) {
 		let html = ''
 		$('.map-serach-dl').html('');
@@ -68,7 +84,7 @@ function changeChildScene() {
 			let index = $(this).attr('index');
 			$('#map-serach').val(totolKeyData[index].subScene);
 			$('.map-serach-dl').css('display', 'none');
-			requestScene(totolKeyData[index].city,totolKeyData[index].scene,totolKeyData[index].subScene);
+			requestScene(totolKeyData[index].city, totolKeyData[index].scene, totolKeyData[index].subScene);
 		})
 
 	})
@@ -104,29 +120,32 @@ function addScene(data) {
 			let c = (data[index]['a_04'] == null ? '--' : data[index]['a_04']);
 			let list = sceneBgList.filter(item => {
 				return item.name == data[index]['import_scene']
-			})[0];
-			let bgClass = list.activeIcon;
-			let bgClassActive = list.activeIcon + '_active'
-			let name = list.name;
-			html =
-				`
-			<div class="layui-col-md4 h100  ${recentSceneIndex == index?bgClassActive:bgClass} scene-common" name="${name}" index="${index}"></div>
-			<div class="layui-col-md8 h100">
-				<div class="scene-box">
-					<div class="scene-index">
-						<span>子场景数量：</span><span class="color-blue">${a}</span>
-					</div>
-					<div class="scene-index">
-						<span>质差场景数：</span><span class="color-green">${b}</span>
-					</div>
-					<div class="scene-index">
-						<span>超长超频质差场景数：</span><span class="color-red">${c}</span>
+			});
+			if (list.length) {
+				let bgClass = list[0].activeIcon;
+				let bgClassActive = list[0].activeIcon + '_active'
+				let name = list[0].name;
+				html =
+					`
+				<div class="layui-col-md4 h100  ${recentSceneIndex == index?bgClassActive:bgClass} scene-common" name="${name}" index="${index}"></div>
+				<div class="layui-col-md8 h100">
+					<div class="scene-box">
+						<div class="scene-index">
+							<span>子场景数量：</span><span class="color-blue">${a}</span>
+						</div>
+						<div class="scene-index">
+							<span>质差场景数：</span><span class="color-green">${b}</span>
+						</div>
+						<div class="scene-index">
+							<span>超长超频质差场景数：</span><span class="color-red">${c}</span>
+						</div>
 					</div>
 				</div>
-			</div>
-			`;
+				`;
+				$(item).html(html);
+			}
+
 		}
-		$(item).html(html);
 	});
 	$('.scene-common').on('click', function() {
 		let name = $(this).attr('name');
@@ -136,20 +155,22 @@ function addScene(data) {
 			beforeClickSceneIndex = recentSceneIndex;
 			beforeClickName = nerName;
 			nerName = name;
+			rencentSceneName = name;
 			recentSceneIndex = index;
 			$($('.scene-common')[beforeClickSceneIndex]).toggleClass('scene-' + swicthClass(beforeClickName) + '_active',
 				false);
 			$(this).toggleClass('scene-' + swicthClass(name) + '_active', true);
 			initDataPart(city, name, '全部');
-			requestScene(city,name,'全部');
+			requestScene(city, name, '全部');
 		} else {
 			beforeClickSceneIndex = -1;
 			beforeClickName = '';
 			nerName = '';
 			recentSceneIndex = -1;
+			rencentSceneName = '全部';
 			$(this).toggleClass('scene-' + swicthClass(name) + '_active', false);
 			initDataPart(city, '全部', '全部');
-			requestScene(city,'全部','全部');
+			requestScene(city, '全部', '全部');
 		}
 	})
 }
@@ -213,6 +234,9 @@ function swicthClass(name) {
 			break;
 		case '底商':
 			className = "dishang";
+			break;
+		case '公园':
+		    className = "gongyuan";
 			break;
 	}
 	return className
@@ -501,7 +525,7 @@ function init() {
 			let city = $("#city").val();
 			initData(city);
 			initDataPart(city, '全部', '全部');
-			requestScene(city,'全部','全部');
+			requestScene(city, '全部', '全部');
 		})
 	});
 
@@ -521,7 +545,7 @@ function init() {
 		let city = $("#city").val();
 		initData(city);
 		initDataPart(city, '全部', '全部');
-		requestScene(city,'全部','全部');
+		requestScene(city, '全部', '全部');
 	})
 
 	$('.zicha-addBtn').on('click', function() {

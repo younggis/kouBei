@@ -64,15 +64,23 @@ function getUserId(url, data, callBack) {
 		}
 	});
 }
+
+var loadindex=0;
 //开始加载
 function startLoad() {
-	loadinglayer = layerLayer.load(0, {
-		shade: [0.5, '#000'] //0.1透明度的白色背景
-	});
+	if(loadindex==0){
+		loadinglayer = layerLayer.load(0, {
+			shade: [0.5, '#000'] //0.1透明度的白色背景
+		});
+	}
+	loadindex++;
 }
 //结束加载
 function endLoad(idx) {
-	layerLayer.close(loadinglayer);
+	loadindex--;
+	if(loadindex==0){
+		layerLayer.close(loadinglayer);
+	}
 }
 
 function $$(url, data, callBack) {

@@ -61,6 +61,9 @@ const sceneList = [{
 	}, {
 		name: '底商',
 		url: 'img/images/dishang.png'
+	},{
+		name: '公园',
+		url: 'img/images/gongyuan.png'
 	}
 ]
 
@@ -1464,6 +1467,12 @@ const sceneBgList = [{
 		name: '底商',
 		url: 'img/images/dishang.png',
 		activeIcon: 'scene-dishang',
+		icon: ''
+	},
+	{
+		name: '公园',
+		url: 'img/images/gongyuan.png',
+		activeIcon: 'scene-gongyuan',
 		icon: ''
 	}
 ]
