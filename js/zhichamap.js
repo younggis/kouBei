@@ -109,6 +109,8 @@ function initMap() {
 	map.addLayer(highlightLayer);
 
 	map.on("moveend", function(e) {
+		overlayer.setPosition(undefined);
+		
 		var zoom = map.getView().getZoom(); //获取当前地图的缩放级别
 		if(zoom < 14) {
 			sectorLayer.setVisible(false);
@@ -351,15 +353,7 @@ function addSceneLayer(data) {
 	sceneLayer.getSource().addFeatures(features);
 	warnlocLayer.getSource().addFeatures(_features);
 
-	setTimeout(() => {
-		var size = map.getSize();
-		if(sceneLayer.getSource().getFeatures().length) {
-			var extent = sceneLayer.getSource().getExtent();
-			map.getView().fit(extent, {
-				size: [size[0] * 1.5, size[1] * 1.5]
-			});
-		}
-	})
+	
 }
 
 function addSectorLayer(data) {
@@ -395,4 +389,14 @@ function addSectorLayer(data) {
 	}
 	sectorLayer.getSource().addFeatures(features);
 	heatmapLayer.getSource().addFeatures(_features);
+	
+	setTimeout(() => {
+		var size = map.getSize();
+		if(sectorLayer.getSource().getFeatures().length) {
+			var extent = sectorLayer.getSource().getExtent();
+			map.getView().fit(extent, {
+				size: [size[0] * 1.5, size[1] * 1.5]
+			});
+		}
+	})
 }
