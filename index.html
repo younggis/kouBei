@@ -10,7 +10,16 @@
 		<link rel="stylesheet" href="./font/iconfont.css">
 		<link rel="stylesheet" href="css/index.css" />
 		<style type="text/css">
-
+			.explain {
+				position: absolute;
+				right: 10px;
+				margin-top: 6px;
+				cursor: pointer;
+			}
+			
+			.explain img {
+				width: 24px;
+			}
 		</style>
 	</head>
 
@@ -37,14 +46,14 @@
 					</div>
 				</div>
 				<div class="layui-inline" style="margin-left: 54px;">
-					
+
 					<button class="layui-btn layui-btn-primary" id="seaBtn" type="button">
 						<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
 						查询
 					</button>
 				</div>
 				<div class="layui-inline" id="content" style="line-height: 38px;margin-left: 50px;">
-					
+
 				</div>
 				<!-- <div class="layui-inline fr espSel">
 				 	<select name="interest" lay-filter="aihao" class="">
@@ -54,7 +63,7 @@
 				 				        
 				 				      </select>	
 				 				    </div>  -->
-				<div class="imgDiv fr posiRel" style="position: absolute;right: 20px;">
+				<div class="imgDiv fr posiRel" style="position: absolute;right: 32px;">
 					<img src="img/exportPoint.png" class="exportPoint" />
 					<div class="layui-unselect layui-form-select layui-form-selected mySel" style="display: none">
 						<dl class="layui-anim layui-anim-upbit" style="">
@@ -62,6 +71,9 @@
 							<dd lay-value="1" class="">场景级</dd>
 						</dl>
 					</div>
+				</div>
+				<div class="explain" id="explain">
+					<img src="img/explain.png" />
 				</div>
 
 			</form>
@@ -105,7 +117,7 @@
 				<div class="layui-col-md4" style="height: 100%;display: flex;">
 					<div class="borbg pd14" style="width: 46%;">
 						<h3>场景投诉情况</h3>
-						<div id="tousuScene" class="posiRel situComp layui-clear"  style="height: calc(100% - 21px);overflow-y: auto;">
+						<div id="tousuScene" class="posiRel situComp layui-clear" style="height: calc(100% - 21px);overflow-y: auto;">
 							<ul class="fl" id="firstline" style="width:100%">
 								<!--<li class="sAirport">机场<span class="fr">21</span></li>
 								<li class="sHighSpeed">高速<span class="fr">24</span></li>
@@ -124,7 +136,7 @@
 								<li class="sFood">美食<span class="fr">31</span></li>
 								<li class="sAirport">机场<span class="fr">21</span></li>-->
 							</ul>
-							
+
 						</div>
 						<!-- <div class="single-scene">
 							<div class="scene-box">
@@ -144,7 +156,7 @@
 						<h3 class="">三个维度得分情况</h3>
 						<div id="score5" style="height: calc(100% - 120px)"></div>
 						<div style="height:100px;position: relative;">
-							<ul class="scoreDes" >
+							<ul class="scoreDes">
 								<li><span class="fl"></span>客户满意度<span class="per" id="quality_rate">--%</span></li>
 								<!-- <li><span class="fl"></span>容量<span class="per" id="rongliang_rate">--%</span></li>
 								<li><span class="fl"></span>干扰<span class="per" id="ganrao_rate">--%</span></li> -->
@@ -214,12 +226,110 @@
 
 			</div>
 		</div>
+		<div id="explainlayer" style="display: none;">
+			<div class="explain-title">
+				口碑周粒度质差场景规则：主要包含客户满意度、网络感知、基础网络3大维度共涉及计13项指标，并根据不同场景主要业务模型，对不同场景的各项指标门限和分数权重进行定义，按周粒度得出口碑场景网络质量评估体系得分：连续两周评分<80分的场景即为质差场景，具体指标如下：
+			</div>
+			<div class="explain-table">
+				<table>
+					<thead>
+						<tr>
+							<th rowspan="2">维度</th>
+							<th rowspan="2">指标</th>
+							<th colspan="2">指标权重</th>
+							<th colspan="2">指标权重</th>
+						</tr>
+						<tr>
+							<th colspan="2">（非线路专网）</th>
+							<th colspan="2">（线路专网）</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>客户满意度</td>
+							<td>投诉</td>
+							<td>25</td>
+							<td>25</td>
+							<td>20</td>
+							<td>20</td>
+						</tr>
+						<tr>
+							<td rowspan="6">网络感知</td>
+							<td>VOLTE高掉话小区占比</td>
+							<td>5</td>
+							<td rowspan="6">35</td>
+							<td>5</td>
+							<td rowspan="6">35</td>
+						</tr>
+						<tr>
+							<td>VOLTE低接通小区占比</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>LTE无线高掉线小区占比</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>上行高丢包（QCI=1）</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>下行高丢包（QCI=1）</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>单用户速率（下行用户平均速率）</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td rowspan="6">基础网络</td>
+							<td>MR弱覆盖小区（宏站）占比</td>
+							<td>5</td>
+							<td rowspan="6">40</td>
+							<td>5</td>
+							<td rowspan="6">45</td>
+						</tr>
+						<tr>
+							<td>MR弱覆盖小区（室分）占比</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>低CQI占比</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>上行高干扰小区占比</td>
+							<td>5</td>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>高负荷小区占比（集团算法）</td>
+							<td>10</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td>超长超频小区占比</td>
+							<td>10</td>
+							<td>15</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script src="layui/layui.all.js"></script>
 		<script src="js/ol.js"></script>
 		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/sichuan.js"></script>
-		<script type="text/javascript" src="js/turf.min.js" ></script>
+		<script type="text/javascript" src="js/turf.min.js"></script>
 		<script type="text/javascript" src="js/map.js"></script>
 		<script type="text/javascript" src="echarts/echarts.min.js"></script>
 		<script type="text/javascript" src="js/index.js?v=20200525"></script>

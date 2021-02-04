@@ -1,4 +1,5 @@
 function init() {
+	
 	var userid = getvl('user');
 	if(!userid) {
 		alert('请从四川移动网优大数据管理平台进入！');
@@ -60,6 +61,16 @@ function init() {
 		downFile("Scene/ExportCityScene", {
 			city: city
 		})
+	})
+	$('#explain').on('click', function() {
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 1,
+			area: ['720px', '480px'],
+			shadeClose: true,
+			content: $('#explainlayer')
+		});
 	})
 
 	initMap()

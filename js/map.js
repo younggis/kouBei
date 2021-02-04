@@ -72,21 +72,7 @@ function initMap() {
 	let roadLayer = new ol.layer.Tile({
 		title: "3857底图",
 		source: new ol.source.XYZ({
-			tileUrlFunction: function(tileCoord) {
-				let oo = "00000000";
-				let zz = tileCoord[0];
-				if(zz < 10) {
-					zz = '0' + zz;
-				}
-				let z = "L" + zz;
-				let xx = tileCoord[1].toString(16);
-				let x = "C" + oo.substring(0, 8 - xx.length) + xx;
-				let yy = (-tileCoord[2] - 1).toString(16); //注意此处，计算方式变了
-				let y = "R" + oo.substring(0, 8 - yy.length) + yy;
-				return 'http://223.86.3.47:28080/api/Handler/Utils.ashx?method=convertImg&x=' + z + '&y=' + y + '&z=' + x
-//				return "http://10.110.39.171:8088/RoadLayer/Layers/_alllayers/" + z + "/" + y + "/" + x + ".png"
-			},
-			projection: 'EPSG:3857'
+			url: baseUrl + 'Handler/Utils.ashx?method=baiduMap&x={x}&y={y}&z={z}'
 		})
 	});
 	map.addLayer(roadLayer);
