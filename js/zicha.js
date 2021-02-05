@@ -565,7 +565,7 @@ function init() {
 	});
 	$("#seaBtn").on('click', function() {
 		let city = $("#city").val();
-
+        $('#map-serach').val('');
 		//场景游标还原
 		recentSceneIndex = -1;
 		beforeClickSceneIndex = -1;
