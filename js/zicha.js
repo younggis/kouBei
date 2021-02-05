@@ -24,7 +24,7 @@ window.onresize = function() {
 
 $("body").click(function(e) {
 	e.stopPropagation();
-	if(!$(e.target.parentElement).hasClass('map-search')) {
+	if (!$(e.target.parentElement).hasClass('map-search')) {
 		$(".map-serach-dl").hide();
 	}
 })
@@ -32,13 +32,14 @@ $("body").click(function(e) {
 function changeBc(index) {
 	$($('.zicha-city')[index]).toggleClass('mapbc-' + index);
 	$($('.zicha-city')[index]).toggleClass('mapbc-active-' + index);
+	$('#map-serach').val('');
 	$('.zicha-city').each((i, item) => {
-		if(i != index) {
+		if (i != index) {
 			$(item).addClass('mapbc-' + i);
 			$(item).removeClass('mapbc-active-' + i);
 		}
 	});
-	if(index != recentCityIndex) {
+	if (index != recentCityIndex) {
 		recentCityName = $($('.zicha-city')[index]).text();
 		recentCityIndex = index;
 		initDataPart(recentCityName, '全部', '全部');
@@ -63,10 +64,10 @@ function changeChildScene() {
 		let html = ''
 		$('.map-serach-dl').html('');
 		totolKeyData = result
-		if(result && result.length) {
-			for(let i = 0; i < result.length; i++) {
+		if (result && result.length) {
+			for (let i = 0; i < result.length; i++) {
 				let classText = '';
-				if(i % 2 == 0) {
+				if (i % 2 == 0) {
 					classText = 'even';
 				};
 				let label = result[i].city + '→' + result[i].scene + '→';
@@ -84,6 +85,7 @@ function changeChildScene() {
 			$('#map-serach').val(totolKeyData[index].subScene);
 			$('.map-serach-dl').css('display', 'none');
 			requestScene(totolKeyData[index].city, totolKeyData[index].scene, totolKeyData[index].subScene);
+			initDataPart(totolKeyData[index].city, totolKeyData[index].scene, totolKeyData[index].subScene);
 		})
 
 	})
@@ -92,9 +94,9 @@ function changeChildScene() {
 function addList(data) {
 	$('#zicha-list').html('');
 	let html = '';
-	for(let i = 0; i < data.length; i++) {
+	for (let i = 0; i < data.length; i++) {
 		let classText = '';
-		if(i % 2 == 1) {
+		if (i % 2 == 1) {
 			classText = 'even';
 		}
 		data[i] = handleNull(data[i]);
@@ -113,14 +115,14 @@ function addScene(data) {
 	$('.scene-font').each((index, item) => {
 		$(item).html = '';
 		let html = '';
-		if(index < data.length) {
+		if (index < data.length) {
 			let a = (data[index]['num'] == null ? '--' : data[index]['num']);
 			let b = (data[index]['is_yj'] == null ? '--' : data[index]['is_yj']);
 			let c = (data[index]['a_04'] == null ? '--' : data[index]['a_04']);
 			let list = sceneBgList.filter(item => {
 				return item.name == data[index]['import_scene']
 			});
-			if(list.length) {
+			if (list.length) {
 				let bgClass = list[0].activeIcon;
 				let bgClassActive = list[0].activeIcon + '_active'
 				let name = list[0].name;
@@ -141,16 +143,16 @@ function addScene(data) {
 					</div>
 				</div>
 				`;
-				$(item).html(html);
 			}
-
 		}
+		$(item).html(html);
 	});
 	$('.scene-common').on('click', function() {
 		let name = $(this).attr('name');
 		let city = $("#city").val();
 		let index = $(this).attr('index');
-		if(index != recentSceneIndex) {
+		$('#map-serach').val('');
+		if (index != recentSceneIndex) {
 			beforeClickSceneIndex = recentSceneIndex;
 			beforeClickName = nerName;
 			nerName = name;
@@ -176,7 +178,7 @@ function addScene(data) {
 
 function swicthClass(name) {
 	let className = "";
-	switch(name) {
+	switch (name) {
 		case '地铁':
 			className = "ditie";
 			break;
@@ -257,11 +259,11 @@ function showEchart(id, xData, ydata, unit, chartObj) {
 			},
 		},
 		grid: {
-			left: 20,
+			left: 50,
 			right: 20,
-			bottom: 10,
+			bottom: 50,
 			top: 70,
-			containLabel: true,
+			// containLabel: true,
 		},
 		xAxis: [{
 			type: "category",
@@ -283,7 +285,7 @@ function showEchart(id, xData, ydata, unit, chartObj) {
 				rotate: 90,
 				formatter: function(value, index) {
 					let list = value.split(':');
-					if(list[1] == "00") {
+					if (list[1] == "00") {
 						return value;
 					} else {
 						return ''
@@ -342,13 +344,15 @@ function showEchart(id, xData, ydata, unit, chartObj) {
 
 		},
 	};
-	if(!chartObj[id]) {
-		chartObj[id] = echarts.init(document.getElementById(id));
-		chartObj[id].setOption(option);
-	} else {
-		chartObj[id].setOption(option, true);
-	}
-	chartObj[id].resize();
+	// if(!chartObj[id]) {
+	// 	chartObj[id] = echarts.init(document.getElementById(id));
+	// 	chartObj[id].setOption(option);
+	// } else {
+	// 	chartObj[id].setOption(option, true);
+	// }
+	chartObj[id] = echarts.init(document.getElementById(id));
+	chartObj[id].setOption(option);
+	// chartObj[id].resize();
 }
 
 function initData(city) {
@@ -358,7 +362,7 @@ function initData(city) {
 		city: city,
 		flag: flog,
 	}, function(result) {
-		if(flog == 1) {
+		if (flog == 1) {
 			$(".city-detail").css('display', 'block');
 			$('.city-scene').css('display', 'none');
 			// $('.zicha-addBtn').css('display', 'none');
@@ -369,7 +373,7 @@ function initData(city) {
 				$(item).find('.color-blue').text((!data.length || data[0]['num'] == null) ? '--' : data[0]['num']);
 				$(item).find('.color-green').text((!data.length || data[0]['is_yj'] == null) ? '--' : data[0]['is_yj']);
 				$(item).find('.color-red').text((!data.length || data[0]['a_04'] == null) ? '--' : data[0]['a_04']);
-				if($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
+				if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
 					$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
 					$(item).find('.zicha-city').addClass('mapbc-' + index);
 				}
@@ -401,7 +405,7 @@ function dealSummaryIndex(indexList) {
 	let indexlabel = ['流量', 'VOLTE话务量', '高利用率小区数占比', 'volte掉话率', '低感知小区数占比', '投诉量']
 	$('#zhicha-index').empty();
 	let html = '';
-	for(var i = 0; i < 6; i++) {
+	for (var i = 0; i < 6; i++) {
 		html =
 			`
 			<div class="layui-col-md4 h50 zhicha-cursor">
@@ -422,7 +426,7 @@ function dealSummaryIndex(indexList) {
 		$(this).addClass('active-index');
 		let label = $(this).find('.index-label').text();
 		recentSummaryIndex = indexlabel.indexOf(label);
-		if(echartData.length) {
+		if (echartData.length) {
 			$('.chart-nodata').css('display', 'none');
 			$('.chart-box').css('display', 'block');
 			dealChartData()
@@ -454,14 +458,13 @@ function initDataPart(city, scene, subScene) {
 		scene: scene,
 		subScene: subScene
 	}, function(result) {
-		console.log(result)
-		if(!result) {
+		if (!result) {
 			$('#zicha-list').css('display', 'none');
 			$('.top-nodata').css('display', 'block');
 			dealSummaryIndex(['--', '--', '--', '--', '--', '--']);
 			return
 		}
-		if(result.top && result.top.length) {
+		if (result.top && result.top.length) {
 			$('#zicha-list').css('display', 'block');
 			$('.top-nodata').css('display', 'none');
 			addList(result.top);
@@ -469,7 +472,7 @@ function initDataPart(city, scene, subScene) {
 			$('#zicha-list').css('display', 'none');
 			$('.top-nodata').css('display', 'block');
 		}
-		if(result.summary) {
+		if (result.summary) {
 			let indexList = [dealData(result.summary['liuliang_GB']), dealData(result.summary['ERAB_NBRMEANESTAB_1']),
 				dealData(
 					result.summary[
@@ -481,8 +484,10 @@ function initDataPart(city, scene, subScene) {
 			dealSummaryIndex(['--', '--', '--', '--', '--', '--'])
 		}
 
-		if(result.timeList && result.timeList.length) {
+		if (result.timeList && result.timeList.length) {
 			echartData = result.timeList;
+			$('.chart-nodata').css('display', 'none');
+			$('.chart-box').css('display', 'block');
 			dealChartData();
 		} else {
 			echartData = [];
@@ -494,9 +499,9 @@ function initDataPart(city, scene, subScene) {
 }
 
 function init() {
-	
+
 	var userid = getvl('user');
-	if(!userid) {
+	if (!userid) {
 		alert('请从四川移动网优大数据管理平台进入！');
 		return;
 	}
@@ -504,20 +509,20 @@ function init() {
 		user: userid
 	}, function(data) {
 		let citylist = [];
-		for(var i = 0; i < data.length; i++) {
+		for (var i = 0; i < data.length; i++) {
 			var value = data[i]['EnumName'];
-			if(data[i]['EnumName'] == '全部') continue;
+			if (data[i]['EnumName'] == '全部') continue;
 			citylist.push({
 				label: data[i]['EnumName'],
 				value: value
 			})
 		}
 		_addOption('city', citylist);
-		$$('scene/badQualityTimeList', {}, function(result) {
+		$$('scene/timeList', {}, function(result) {
 			timeList = result;
 			let timelist = [];
 			let data = result;
-			for(var i = 0; i < data.length; i++) {
+			for (var i = 0; i < data.length; i++) {
 				timelist.push({
 					label: data[i],
 					value: data[i]
@@ -533,11 +538,26 @@ function init() {
 
 	layerForm.on('switch(switchTest)', function(data) {
 		switchFlog = !switchFlog;
+
+		//场景游标还原
+		recentSceneIndex = -1;
+		beforeClickSceneIndex = -1;
+		beforeClickName = '';
+		nerName = "";
+		rencentSceneName = "全部";
+
+		//地市游标还原
+		recentCityIndex = -1;
+		beforeClickCityIndex = -1;
+		recentCityName = "全省";
+
 		initData('全省');
+		initDataPart('全省', '全部', '全部');
+		requestScene('全省', '全部', '全部');
 	})
 
 	layerForm.on('select(city)', function(data) {
-		if(data.value != '全省') {
+		if (data.value != '全省') {
 			$(".zicha-swicth .layui-form-switch").css('display', 'none');
 		} else {
 			$(".zicha-swicth .layui-form-switch").css('display', 'block');
@@ -545,6 +565,19 @@ function init() {
 	});
 	$("#seaBtn").on('click', function() {
 		let city = $("#city").val();
+
+		//场景游标还原
+		recentSceneIndex = -1;
+		beforeClickSceneIndex = -1;
+		beforeClickName = '';
+		nerName = "";
+		rencentSceneName = "全部";
+
+		//地市游标还原
+		recentCityIndex = -1;
+		beforeClickCityIndex = -1;
+		recentCityName = "全省";
+
 		initData(city);
 		initDataPart(city, '全部', '全部');
 		requestScene(city, '全部', '全部');
@@ -562,7 +595,7 @@ function init() {
 		let index = 0;
 		let items = $('#zhichaSceneSelect .layui-col-md3.active');
 		let scenes = [];
-		for(var i = 0; i < items.length; i++) {
+		for (var i = 0; i < items.length; i++) {
 			scenes.push($(items[i]).attr('name'));
 		}
 		let data = [];
@@ -604,11 +637,11 @@ function requestScene(city, scene, subScene) {
 
 function initSceneSelect(data) {
 	$('#zhichaSceneSelect').html('');
-	for(let i = 0; i < data.length; i++) {
-		for(let j = 0; j < sceneList.length; j++) {
-			if(sceneList[j]['name'] == data[i]['import_scene']) {
+	for (let i = 0; i < data.length; i++) {
+		for (let j = 0; j < sceneList.length; j++) {
+			if (sceneList[j]['name'] == data[i]['import_scene']) {
 				let btnhtml = '';
-				if(i > 11) {
+				if (i > 11) {
 					btnhtml =
 						`
 						<div class="layui-col-md3" name="${sceneList[j]['name']}">
@@ -630,14 +663,14 @@ function initSceneSelect(data) {
 	$('#zhichaSceneSelect .layui-col-md3').on('click', function() {
 		let items = $('#zhichaSceneSelect .layui-col-md3');
 		let num = $('#zhichaSceneSelect .active').length;
-		if($(this).hasClass('active')) {
+		if ($(this).hasClass('active')) {
 			let curr_url = $(this).find('img').attr('src');
 			curr_url = curr_url.replace('.png', '_unactive.png');
 			$(this).find('img').attr('src', curr_url)
 			$(this).removeClass('active');
 
 		} else {
-			if(num < 12) {
+			if (num < 12) {
 				let curr_url = $(this).find('img').attr('src');
 				curr_url = curr_url.replace('_unactive.png', '.png');
 				$(this).find('img').attr('src', curr_url)
@@ -665,15 +698,4 @@ function dealDate(date) {
 	let a1 = list[0].replace(/-/g, '');
 	let a2 = list[1].replace(/:/g, '');
 	return a1 + a2;
-}
-
-function initEchartData(data, mark) {
-	let xData = [];
-	let seriesData1 = [];
-	let seriesData2 = [];
-	data.forEach(item => {
-		xData.push(item[mark]);
-		seriesData1.push(item['a_03']);
-		seriesData2.push(item['a_04']);
-	});
 }
