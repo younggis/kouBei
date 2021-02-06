@@ -630,10 +630,8 @@ function requestScene(city, scene, subScene) {
 		scene: scene,
 		subScene: subScene
 	}, function(result) {
-		setTimeout(()=>{
-			addSceneLayer(result['scene']);
-			addSectorLayer(result['cell']);
-		},50)
+		addSceneLayer(result['scene']);
+		addSectorLayer(result['cell']);
 	})
 }
 
