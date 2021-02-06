@@ -1659,7 +1659,12 @@ const zicaxiaoquConfig = [
 		title: '是否投诉',
 		width: 157,
 		align:'center'
-	},
+	},{
+		field: 'a_20',
+		title: '是否质差小区',
+		width: 157,
+		align:'center'
+	}
 	]
 ]
 

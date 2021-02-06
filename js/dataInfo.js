@@ -197,7 +197,8 @@ function init() {
 				time: data['time'],
 				city: data['a_02'],
 				scene: data['a_03'],
-				subScene: data['a_04']
+				subScene: data['a_04'],
+				is_zhicha:1
 			}
 			executeQuery();
 		}
@@ -256,7 +257,7 @@ function adjustPage() {
 				time: time,
 				city: city,
 				scene: scene,
-				subScene: subScene,
+				subScene: subScene
 			}
 			layerForm.render();
 		}
@@ -408,6 +409,9 @@ function executeQuery(pageindex) {
 			pageIndex: pageindex,
 			pageSize: tableNumber
 		}
+		if(coverObj.is_zhicha){
+			params.is_zhicha=1;
+		}
 		$$('scene/badQualityDataPage', params, (result) => {
 			coverObj = {};
 			renderTotalTable(result);
@@ -445,9 +449,25 @@ function renderTotalTable(result) {
 	} else if(flag == 8) {
 		config = zicaxiaoquConfig
 	}
+	var data = result.data ? result.data : [];
+
+	for(var i = 0; i < data.length; i++) {
+		for(var j = 0; j < config[0].length; j++) {
+			if(config[0][j]['title'].indexOf('是否')>-1){
+				if(data[i][config[0][j]['field']]!=null){
+					if(data[i][config[0][j]['field']]==1 || data[i][config[0][j]['field']]=='1'){
+						data[i][config[0][j]['field']]='是'
+					}else if(data[i][config[0][j]['field']]==0 || data[i][config[0][j]['field']]=='0'){
+						data[i][config[0][j]['field']]='否'
+					}
+				}
+			}
+		}
+	}
+
 	layerTable.render({
 		elem: '#cjCityTab',
-		data: result.data ? result.data : [],
+		data: data,
 		page: false,
 		limit: 15,
 		cols: config,

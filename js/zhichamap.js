@@ -110,7 +110,7 @@ function initMap() {
 
 	map.on("moveend", function(e) {
 		overlayer.setPosition(undefined);
-		
+
 		var zoom = map.getView().getZoom(); //获取当前地图的缩放级别
 		if(zoom < 14) {
 			sectorLayer.setVisible(false);
@@ -226,7 +226,7 @@ function initMap() {
 				var city = properties['a6'];
 				var scene = properties['a7'];
 				var subScene = properties['a1'];
-				
+
 				$$('scene/SceneInfo', {
 					time: dealDate($('#time').val()),
 					city: city,
@@ -308,6 +308,8 @@ function addSceneLayer(data) {
 					element.className = "point_animation";
 					var p = document.createElement("p");
 					var span = document.createElement("span");
+					span.setAttribute('lon', centroid[0]);
+					span.setAttribute('lat', centroid[1]);
 					element.appendChild(p);
 					element.appendChild(span);
 					var point_overlay = new ol.Overlay({
@@ -333,6 +335,9 @@ function addSceneLayer(data) {
 					element.className = "point_animation";
 					var p = document.createElement("p");
 					var span = document.createElement("span");
+					span.setAttribute('lon', centroid[0]);
+					span.setAttribute('lat', centroid[1]);
+
 					element.appendChild(p);
 					element.appendChild(span);
 					var point_overlay = new ol.Overlay({
@@ -353,7 +358,15 @@ function addSceneLayer(data) {
 	sceneLayer.getSource().addFeatures(features);
 	warnlocLayer.getSource().addFeatures(_features);
 
-	
+	$('.ol-overlay-container span').on('click', function() {
+		var x = parseFloat($(this).attr('lon'));
+		var y = parseFloat($(this).attr('lat'));
+		map.getView().animate({
+			center: [x, y]
+		}, {
+			zoom: 15
+		});
+	})
 }
 
 function addSectorLayer(data) {
@@ -373,12 +386,12 @@ function addSectorLayer(data) {
 			feature = new ol.Feature(new ol.geom.Polygon([sectorHelper.createSingleSector({
 				x: point[0],
 				y: point[1]
-			}, 60, 0, 360)]));
+			}, 50, 0, 360)]));
 		} else {
 			feature = new ol.Feature(new ol.geom.Polygon([sectorHelper.createSingleSector({
 				x: point[0],
 				y: point[1]
-			}, 45, parseInt(data[i]['a4']), 60)]));
+			}, 50, parseInt(data[i]['a4']), 60)]));
 		}
 		feature.setProperties(handleNull(data[i]));
 		feature.set('layertype', 'sector');
@@ -389,7 +402,7 @@ function addSectorLayer(data) {
 	}
 	sectorLayer.getSource().addFeatures(features);
 	heatmapLayer.getSource().addFeatures(_features);
-	
+
 	setTimeout(() => {
 		var size = map.getSize();
 		if(sectorLayer.getSource().getFeatures().length) {

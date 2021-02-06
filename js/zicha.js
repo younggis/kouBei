@@ -424,11 +424,11 @@ function dealSummaryIndex(indexList) {
 		if(i==0){
 			if(!isNaN(indexList[6])){
 				if(parseFloat(indexList[6])>0){
-					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/up.png">'+indexList[6]+'</span>';
+					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/up.png">'+indexList[6]+'%</span>';
 				}else if(parseFloat(indexList[6])<0){
-					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/down.png">'+indexList[6]+'</span>';
+					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/down.png">'+indexList[6]+'%</span>';
 				}else{
-					_html+='<span style="margin-left: 12px;>'+indexList[6]+'</span>';
+					//_html+='<span style="margin-left: 12px;>'+indexList[6]+'</span>';
 				}
 			}
 		}
@@ -438,7 +438,7 @@ function dealSummaryIndex(indexList) {
 		    	<div class="bg-index h100  ${recentSummaryIndex == i?'active-index':''}">
 		   		   <div class="index-box">
 		   			    <div class="index-num">${indexList[i]}<span class="index-unit">${indexList[i]=='--'?'':unitList[i]}</span></div>
-		   			    <div class="index-label">${indexlabel[i]}${_html}%</div>
+		   			    <div class="index-label">${indexlabel[i]}${_html}</div>
 		   		   </div>
 		   	    </div>
 			</div>
@@ -656,8 +656,10 @@ function requestScene(city, scene, subScene) {
 		scene: scene,
 		subScene: subScene
 	}, function(result) {
-		addSceneLayer(result['scene']);
-		addSectorLayer(result['cell']);
+		setTimeout(()=>{
+			addSceneLayer(result['scene']);
+			addSectorLayer(result['cell']);
+		},50)
 	})
 }
 
