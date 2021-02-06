@@ -80,7 +80,12 @@
 			$('.menu-list li').siblings('li').each(function(){
 				$('.menu-list li').find('a').removeClass('active');
 			})
-			$('.menu-list li:eq(3)').find('a').addClass('active');
+			
+			if(isBad==7){
+				$('.menu-list li:eq(0)').find('a').addClass('active');
+			}else{
+				$('.menu-list li:eq(3)').find('a').addClass('active');
+			}
 			$('#ifrm').attr('src','dataInfo.html?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene+ '&isBad='+isBad+ '&isComplation='+isComplation);
 			// $('#ifrm').attr('src','dataInfo.html?city=巴中&time=2020-09-29 12&scene=服务区&subScene=泸州市叙永县高桥服务区&isBad=1');
 		}

@@ -105,8 +105,9 @@ function addList(data) {
 		html +=
 			`
 			<li class="zicha-cell-row ${classText}">
-				<div class="zicha-cell-1 cell-6 top-scene" index="${i}">${data[i]['a_03']}</div>
-				<div class="zicha-cell-1 cell-4 top-center">${data[i]['a_05']}</div>
+				<div class="zicha-cell-1 cell-4 top-scene" index="${i}">${data[i]['a_03']}</div>
+				<div class="zicha-cell-1 cell-3 top-center">${data[i]['a_01']}</div>
+				<div class="zicha-cell-1 cell-3 top-center">${data[i]['a_05']}</div>
 			</li>
 		`;
 	}
@@ -419,13 +420,25 @@ function dealSummaryIndex(indexList) {
 	$('#zhicha-index').empty();
 	let html = '';
 	for (var i = 0; i < 6; i++) {
+		let _html='';
+		if(i==0){
+			if(!isNaN(indexList[6])){
+				if(parseFloat(indexList[6])>0){
+					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/up.png">'+indexList[6]+'</span>';
+				}else if(parseFloat(indexList[6])<0){
+					_html+='<span style="margin-left: 12px;"><img style="width: 12px;margin-top: -4px;" src="img/down.png">'+indexList[6]+'</span>';
+				}else{
+					_html+='<span style="margin-left: 12px;>'+indexList[6]+'</span>';
+				}
+			}
+		}
 		html =
 			`
 			<div class="layui-col-md4 h50 zhicha-cursor">
 		    	<div class="bg-index h100  ${recentSummaryIndex == i?'active-index':''}">
 		   		   <div class="index-box">
 		   			    <div class="index-num">${indexList[i]}<span class="index-unit">${indexList[i]=='--'?'':unitList[i]}</span></div>
-		   			    <div class="index-label">${indexlabel[i]}</div>
+		   			    <div class="index-label">${indexlabel[i]}${_html}%</div>
 		   		   </div>
 		   	    </div>
 			</div>
@@ -474,7 +487,7 @@ function initDataPart(city, scene, subScene) {
 		if (!result) {
 			$('#zicha-list').css('display', 'none');
 			$('.top-nodata').css('display', 'block');
-			dealSummaryIndex(['--', '--', '--', '--', '--', '--']);
+			dealSummaryIndex(['--', '--', '--', '--', '--', '--','--']);
 			return
 		}
 		if (result.top && result.top.length) {
@@ -490,11 +503,11 @@ function initDataPart(city, scene, subScene) {
 				dealData(
 					result.summary[
 						'maxuse_rate']), dealData(result.summary['EU0205']), dealData(result.summary['is_dsl_rate']), dealData(
-					result.summary['tousu_total'])
+					result.summary['tousu_total']),dealData(result.summary['liuliang_chayi_GB'])
 			];
 			dealSummaryIndex(indexList)
 		} else {
-			dealSummaryIndex(['--', '--', '--', '--', '--', '--'])
+			dealSummaryIndex(['--', '--', '--', '--', '--', '--', '--'])
 		}
 
 		if (result.timeList && result.timeList.length) {
