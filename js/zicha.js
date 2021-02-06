@@ -637,15 +637,17 @@ function init() {
 }
 
 function requestScene(city, scene, subScene) {
-	// $$('scene/badQualityQuotaMap_new', {
-	// 	time: dealDate($('#time').val()),
-	// 	city: city,
-	// 	scene: scene,
-	// 	subScene: subScene
-	// }, function(result) {
-	// 	addSceneLayer(result['scene']);
-	// 	addSectorLayer(result['cell']);
-	// })
+	$$('scene/badQualityQuotaMap_new', {
+		time: dealDate($('#time').val()),
+		city: city,
+		scene: scene,
+		subScene: subScene
+	}, function(result) {
+		setTimeout(()=>{
+			addSceneLayer(result['scene']);
+			addSectorLayer(result['cell']);
+		},50)
+	})
 }
 
 function initSceneSelect(data) {
