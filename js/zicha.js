@@ -18,6 +18,8 @@ var recentCityName = "全省";
 
 var totolKeyData = [];
 
+var topDataList = [];
+
 window.onresize = function() {
 	chartObj['cccp-chart'].resize();
 }
@@ -103,12 +105,23 @@ function addList(data) {
 		html +=
 			`
 			<li class="zicha-cell-row ${classText}">
-				<div class="zicha-cell-1 cell-6">${data[i]['a_03']}</div>
+				<div class="zicha-cell-1 cell-6 top-scene" index="${i}">${data[i]['a_03']}</div>
 				<div class="zicha-cell-1 cell-4 top-center">${data[i]['a_05']}</div>
 			</li>
 		`;
 	}
 	$('#zicha-list').html(html);
+	topDataList = data;
+	$('.top-scene').on('click',function(){
+		let index = $(this).attr('index');
+		let city = data[index]['a_01'];
+		// let time = dealDate($('#time').val());
+		let time = $('#time').val();
+		let scene = data[index]['a_02'];
+		let subScene = data[index]['a_03'];
+		window.parent.changeMenu(time, city, scene,subScene,7,0);
+		// $('#ifrm').attr('src','dataInfo.html?city=' + city + '&time=' + time+ '&scene=' + scene+ '&subScene=' + subScene);
+	})
 }
 
 function addScene(data) {
@@ -137,12 +150,12 @@ function addScene(data) {
 						<div class="scene-index">
 							<span>质差场景数：</span><span class="color-green">${b}</span>
 						</div>
-						<div class="scene-index">
-							<span>超长超频质差场景数：</span><span class="color-red">${c}</span>
-						</div>
 					</div>
 				</div>
 				`;
+				// <div class="scene-index">
+				// 	<span>超长超频质差场景数：</span><span class="color-red">${c}</span>
+				// </div>
 			}
 		}
 		$(item).html(html);
@@ -372,7 +385,7 @@ function initData(city) {
 				});
 				$(item).find('.color-blue').text((!data.length || data[0]['num'] == null) ? '--' : data[0]['num']);
 				$(item).find('.color-green').text((!data.length || data[0]['is_yj'] == null) ? '--' : data[0]['is_yj']);
-				$(item).find('.color-red').text((!data.length || data[0]['a_04'] == null) ? '--' : data[0]['a_04']);
+				// $(item).find('.color-red').text((!data.length || data[0]['a_04'] == null) ? '--' : data[0]['a_04']);
 				if ($(item).find('.zicha-city').hasClass('mapbc-active-' + index)) {
 					$(item).find('.zicha-city').removeClass('mapbc-active-' + index);
 					$(item).find('.zicha-city').addClass('mapbc-' + index);

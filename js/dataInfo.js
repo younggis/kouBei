@@ -2,6 +2,8 @@ let timeList = {};
 let flag = 2;
 //第三方页面跳入
 let isJump=false;
+var isCover = false;
+var coverObj = null;
 
 function init() {
 	var userid = getvl('user');
@@ -58,23 +60,24 @@ function init() {
 						})
 					}
 					_addOption('time', timelist);
-					setTimeout(() => {
-						adjustPage();
-						executeQuery();
-					}, 200)
+					$$('scene/badQualityTimeList', {}, function(result) {
+						timeList = result;
+						let timelist = [];
+						let data = result;
+						for (var i = 0; i < data.length; i++) {
+							timelist.push({
+								label: data[i],
+								value: data[i]
+							})
+						}
+						_addOption('time_1', timelist);
+						setTimeout(() => {
+							adjustPage();
+							executeQuery();
+						}, 200)
+					})
 				})
-				$$('scene/badQualityTimeList', {}, function(result) {
-					timeList = result;
-					let timelist = [];
-					let data = result;
-					for (var i = 0; i < data.length; i++) {
-						timelist.push({
-							label: data[i],
-							value: data[i]
-						})
-					}
-					_addOption('time_1', timelist);
-				})
+				
 			})
 		})
 	})
@@ -196,7 +199,7 @@ function adjustPage(){
 		var scene = getIframeParams('ifrm', 'scene')['name'];
 		var subScene = getIframeParams('ifrm', 'subScene')['name'];
 		var isComplation = getIframeParams('ifrm', 'isComplation')['name'];
-		if(isBad){
+		if(isBad == 1){
 			isJump=true;
 			flag=5;
 			$('.scene').hide();
@@ -218,7 +221,6 @@ function adjustPage(){
 			}
 			_addOption('time', timelist);
 			
-			
 			$('#time').val(time);
 			$('#city').val(city);
 			$('#scene_1').val(scene);
@@ -227,6 +229,20 @@ function adjustPage(){
 			$('#iszhicha').val(isBad);
 			$('#isComplation').val(isComplation);
 			layerForm.render();
+		}else if(isBad == 7){
+			isJump=true;
+			flag=7;
+			$('.time-1').show();
+			$('.time').hide();
+			$('.groupBtn .btn').siblings('p').removeClass('active');
+			$($('.groupBtn .btn')[6]).addClass('active');
+			isCover = true;
+			coverObj = {
+				time:time,
+				city:city,
+				scene:scene,
+				subScene:subScene,
+			}
 		}
 	}
 }
@@ -367,9 +383,10 @@ function executeQuery(pageindex) {
 		})
 	}else if(flag == 7||  flag == 8){
 		let params = {
-			time: dealDate($('#time_1').val()),
-			city: city,
-			scene:$('#scene').val(),
+			time: coverObj.time?dealDate(coverObj.time):dealDate($('#time_1').val()),
+			city: coverObj.city?coverObj.city:city,
+			scene:coverObj.scene?coverObj.scene:$('#scene').val(),
+			subScene:coverObj.subScene?coverObj.subScene:'',
 			flag: flag-5,
 			pageIndex: pageindex,
 			pageSize: tableNumber
