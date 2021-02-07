@@ -438,7 +438,7 @@ function dealSummaryIndex(indexList) {
 		    	<div class="bg-index h100  ${recentSummaryIndex == i?'active-index':''}">
 		   		   <div class="index-box">
 		   			    <div class="index-num">${indexList[i]}<span class="index-unit">${indexList[i]=='--'?'':unitList[i]}</span></div>
-		   			    <div class="index-label">${indexlabel[i]}${_html}</div>
+		   			    <div class="index-label" index="${i}">${indexlabel[i]}${_html}</div>
 		   		   </div>
 		   	    </div>
 			</div>
@@ -450,8 +450,9 @@ function dealSummaryIndex(indexList) {
 			$(item).removeClass('active-index')
 		});
 		$(this).addClass('active-index');
-		let label = $(this).find('.index-label').text();
-		recentSummaryIndex = indexlabel.indexOf(label);
+		// let label = $(this).find('.index-label').text();
+		recentSummaryIndex = $(this).find('.index-label').attr('index');
+		// recentSummaryIndex = indexlabel.indexOf(label);
 		if (echartData.length) {
 			$('.chart-nodata').css('display', 'none');
 			$('.chart-box').css('display', 'block');
