@@ -139,6 +139,7 @@ function init() {
 		_addOption('time', timelist);
 	})
 	$('#seaBtn').on('click', function() {
+		coverObj = {};
 		executeQuery();
 	})
 
@@ -413,7 +414,7 @@ function executeQuery(pageindex) {
 			params.is_zhicha=1;
 		}
 		$$('scene/badQualityDataPage', params, (result) => {
-			coverObj = {};
+
 			renderTotalTable(result);
 		})
 	} else {

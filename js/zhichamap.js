@@ -11,6 +11,7 @@ let format = new ol.format.WKT(); //数据格式转换
 
 let allData = [];
 
+let isDoubleClick=true;
 function initMap() {
 	map = new ol.Map({
 		layers: [],
@@ -155,9 +156,33 @@ function initMap() {
 		}
 	})
 
-	map.on('click', function(evt) {
-		highlightLayer.getSource().clear();
+	map.on('dblclick', function(evt) {
+		isDoubleClick=true;
+		let feature = map.forEachFeatureAtPixel(evt.pixel,
+			function(feature) {
+				return feature;
+			});
+		if(feature) {
+			var properties = feature.getProperties();
+			var layertype = properties['layertype'];
+			if(layertype == 'scene') {
+				var geotype = feature.getGeometry().getType().toUpperCase();
+				if(geotype == 'POINT') {
+					map.getView().animate({
+						center: feature.getGeometry().getCoordinates()
+					}, {
+						zoom: 15
+					});
+					return false;
+				}
+			}
+		}
+		return false;
+	})
 
+	map.on('click', function(evt) {
+		isDoubleClick=false;
+		highlightLayer.getSource().clear();
 		let feature = map.forEachFeatureAtPixel(evt.pixel,
 			function(feature) {
 				return feature;
@@ -198,61 +223,67 @@ function initMap() {
 
 			if(layertype == 'sector') {
 				var cgi = properties['a5'];
-				$$('scene/CellInfo', {
-					time: dealDate($('#time').val()),
-					cgi: cgi
-				}, function(result) {
-					if(!result) return;
-					result = handleNull(result);
-					let html = '';
-					var is_maxuse = result['is_maxuse'] ? '是' : '否';
-					var is_dsl = result['is_dsl'] ? '是' : '否';
-					html += '<p><span>小区名称：</span>' + result['cell_name'] + '</p>';
-					html += '<p><span>制式：</span>' + result['type'] + '</p>';
-					html += '<p><span>覆盖类型：</span>' + result['COVER_TYPE'] + '</p>';
-					html += '<p><span>流量：</span>' + result['liuliang_GB'] + 'GB</p>';
-					html += '<p><span>VOLTE话务量：</span>' + result['ERAB_NBRMEANESTAB_1'] + 'ERL</p>';
-					html += '<p><span>高利用率：</span>' + result['maxuse'] + '%</p>';
-					html += '<p><span>是否高利用率小区：</span>' + is_maxuse + '</p>';
-					html += '<p><span>VOLTE掉话率：</span>' + result['EU0205'] + '%</p>';
-					html += '<p><span>低感知速率：</span>' + result['EU0536'] + 'Mbps</p>';
-					html += '<p><span>是否低感知小区：</span>' + is_dsl + '</p>';
-					let coordinates = evt.coordinate;
-					let content = document.getElementById('popup-content');
-					content.innerHTML = html;
-					overlayer.setPosition(coordinates);
-				})
+				setTimeout(() => {
+					if(isDoubleClick)return
+					$$('scene/CellInfo', {
+						time: dealDate($('#time').val()),
+						cgi: cgi
+					}, function(result) {
+						if(!result) return;
+						result = handleNull(result);
+						let html = '';
+						var is_maxuse = result['is_maxuse'] ? '是' : '否';
+						var is_dsl = result['is_dsl'] ? '是' : '否';
+						html += '<p><span>小区名称：</span>' + result['cell_name'] + '</p>';
+						html += '<p><span>制式：</span>' + result['type'] + '</p>';
+						html += '<p><span>覆盖类型：</span>' + result['COVER_TYPE'] + '</p>';
+						html += '<p><span>流量：</span>' + result['liuliang_GB'] + 'GB</p>';
+						html += '<p><span>VOLTE话务量：</span>' + result['ERAB_NBRMEANESTAB_1'] + 'ERL</p>';
+						html += '<p><span>高利用率：</span>' + result['maxuse'] + '%</p>';
+						html += '<p><span>是否高利用率小区：</span>' + is_maxuse + '</p>';
+						html += '<p><span>VOLTE掉话率：</span>' + result['EU0205'] + '%</p>';
+						html += '<p><span>低感知速率：</span>' + result['EU0536'] + 'Mbps</p>';
+						html += '<p><span>是否低感知小区：</span>' + is_dsl + '</p>';
+						let coordinates = evt.coordinate;
+						let content = document.getElementById('popup-content');
+						content.innerHTML = html;
+						overlayer.setPosition(coordinates);
+					})
+				}, 50)
 			} else if(layertype == 'scene') {
 				var city = properties['a6'];
 				var scene = properties['a7'];
 				var subScene = properties['a1'];
 
-				$$('scene/SceneInfo', {
-					time: dealDate($('#time').val()),
-					city: city,
-					scene: scene,
-					subScene: subScene
-				}, function(result) {
-					if(!result) return;
-					result = handleNull(result);
-					let html = '';
+				setTimeout(() => {
+					if(isDoubleClick)return;
+					$$('scene/SceneInfo', {
+						time: dealDate($('#time').val()),
+						city: city,
+						scene: scene,
+						subScene: subScene
+					}, function(result) {
+						if(!result) return;
+						result = handleNull(result);
+						let html = '';
 
-					var is_yj = result['is_yj'] ? '是' : '否';
-					html += '<p><span>场景名称：</span>' + result['import_scene'] + '</p>';
-					html += '<p><span>子场景名称：</span>' + result['scene_name'] + '</p>';
-					html += '<p><span>地市：</span>' + result['city_name'] + '</p>';
-					html += '<p><span>是否预警：</span>' + is_yj + '</p>';
-					html += '<p><span>流量：</span>' + result['liuliang_GB'] + 'GB</p>';
-					html += '<p><span>VOLTE话务量：</span>' + result['ERAB_NBRMEANESTAB_1'] + 'ERL</p>';
-					html += '<p><span>高利用率小区占比：</span>' + result['maxuse_rate'] + '%</p>';
-					html += '<p><span>VOLTE掉话率：</span>' + result['EU0205'] + '%</p>';
-					html += '<p><span>低感知小区占比：</span>' + result['is_dsl_rate'] + '%</p>';
-					html += '<p><span>投诉个数：</span>' + result['tousu_total'] + '</p>';
-					let coordinates = evt.coordinate;
-					let content = document.getElementById('popup-content');
-					content.innerHTML = html;
-					overlayer.setPosition(coordinates);
-				})
+						var is_yj = result['is_yj'] ? '是' : '否';
+						html += '<p><span>场景名称：</span>' + result['import_scene'] + '</p>';
+						html += '<p><span>子场景名称：</span>' + result['scene_name'] + '</p>';
+						html += '<p><span>地市：</span>' + result['city_name'] + '</p>';
+						html += '<p><span>是否预警：</span>' + is_yj + '</p>';
+						html += '<p><span>流量：</span>' + result['liuliang_GB'] + 'GB</p>';
+						html += '<p><span>VOLTE话务量：</span>' + result['ERAB_NBRMEANESTAB_1'] + 'ERL</p>';
+						html += '<p><span>高利用率小区占比：</span>' + result['maxuse_rate'] + '%</p>';
+						html += '<p><span>VOLTE掉话率：</span>' + result['EU0205'] + '%</p>';
+						html += '<p><span>低感知小区占比：</span>' + result['is_dsl_rate'] + '%</p>';
+						html += '<p><span>投诉个数：</span>' + result['tousu_total'] + '</p>';
+						let coordinates = evt.coordinate;
+						let content = document.getElementById('popup-content');
+						content.innerHTML = html;
+						overlayer.setPosition(coordinates);
+					})
+				}, 50)
 			} else {
 				overlayer.setPosition(undefined);
 			}
